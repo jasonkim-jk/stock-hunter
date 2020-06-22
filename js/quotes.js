@@ -1,6 +1,3 @@
-const quote = document.querySelector(".blockquote p");
-const author = document.querySelector(".blockquote footer");
-
 // update random quote
 function updateQuote() {
   $.getJSON(urlGetQuote, (data) => {

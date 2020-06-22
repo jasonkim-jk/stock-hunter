@@ -12,22 +12,27 @@
   <body>
     <div class="container header-container">
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-2 mt-2">
           <img src="img/logo_transparent.png" alt="webpage logo image" id="img-logo" />
         </div>
-        <div class="col-sm-10 input-group">
+        <div class="col-sm-10 input-group mt-2">
           <!-- Ticker Search -->
           <input
-          type="text"
-          class="form-control form-control-lg"
-          id="input-company"
-          placeholder="Company Name"
-          aria-label="Large"
-          pattern="^[A-Za-z]+$"
+            type="text"
+            class="form-control form-control-lg"
+            id="input-company"
+            placeholder="Company Name"
+            aria-label="Large"
+            pattern="^[A-Za-z]+$"
           />
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" id="btn-search" type="button">Search</button>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10 mt-2">
           <div class="company-data"></div>
         </div>
       </div>
