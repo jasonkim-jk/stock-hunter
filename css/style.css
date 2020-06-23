@@ -108,8 +108,11 @@ body {
 
 /******************* chart container *******************/
 .chart-container {
-  height: 40vh;
-  border: 1px solid blue;
+  width: 100vw;
+  min-height: 400px;
+  margin: 0.5rem 0;
+  padding: 0 0.2rem;
+  /* border: 1px solid blue; */
 }
 
 /******************* news container *******************/
