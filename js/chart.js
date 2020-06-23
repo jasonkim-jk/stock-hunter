@@ -25,8 +25,6 @@ function createChartContainer() {
   // the previous chart should be deleted
   $("#chart-container").remove();
 
-  let container = document.querySelector(".chart-news-container");
-  let newsContainer = document.querySelector(".news-container");
   let divContainer = document.createElement("div");
   divContainer.className = classChartContainer;
   divContainer.id = idChartContainer;
@@ -38,7 +36,7 @@ function createChartContainer() {
   let divChart = document.createElement("div");
   divChart.id = idChartGraph;
   divContainer.append(btnClose, divChart);
-  container.insertBefore(divContainer, newsContainer);
+  chartNewsContainer.insertBefore(divContainer, newsContainer);
 
   // to delete stock chart
   btnClose.addEventListener("click", (event) => {

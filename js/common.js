@@ -53,6 +53,7 @@ const defaultStockList = [
 // chart container
 const classChartContainer = "col chart-container";
 const idChartContainer = "chart-container";
+const idChartContainerModal = "chart-container-modal";
 const idChartGraph = "chart-stock";
 
 ////////////////////////
@@ -70,7 +71,10 @@ const classNewsTitle = "mb-0 text-dark";
 const classNewsText = "mb-auto card-text";
 const classNewsTime = "mb-0 text-muted";
 
+const chartNewsContainer = document.querySelector(".chart-news-container");
 const newsContainer = document.querySelector(".news-container");
+const chartNewsContainerModal = document.querySelector(".chart-news-container-modal");
+const newsContainerModal = document.querySelector(".news-container-modal");
 const noImage = "../img/noimage.png";
 
 ////////////////////////
@@ -100,6 +104,11 @@ function addComma(numString) {
 // to check the current browser size
 function checkMobileSize() {
   return $(window).width() < 500 ? true : false;
+}
+
+// to check the modal is poped up or not
+function checkModal() {
+  return $("#stockModal").hasClass("show") ? true : false;
 }
 
 // to check window size is changing

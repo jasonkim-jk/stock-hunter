@@ -6,9 +6,6 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
 
     const divStock = document.createElement("div");
     divStock.className = classDivMedia;
-    divStock.setAttribute("data-name", companyName);
-    divStock.setAttribute("data-ticker", ticker);
-    divStock.setAttribute("data-url", logoUrl);
     // stockContainer.appendChild(divStock);  // add as the last child
     stockContainer.insertBefore(divStock, stockContainer.childNodes[0]); // add as the first child
 
@@ -66,7 +63,10 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
 
     divStock.addEventListener("click", (event) => {
       if (checkMobileSize()) {
-        window.$("#stockModal").modal();
+        $("#myModalLabel").text(companyName);
+        $("#myModalLabel").attr("data-ticker", ticker);
+        $("#myModalLabel").attr("data-logoUrl", logoUrl);
+        $("#stockModal").modal();
       }
     });
   }).fail((jqxhr, textStatus, error) => {
