@@ -52,6 +52,7 @@ const defaultStockList = [
 ////////////////////////
 // chart container
 const classChartContainer = "col chart-container";
+const idChartContainer = "chart-container";
 const idChartGraph = "chart-stock";
 
 ////////////////////////

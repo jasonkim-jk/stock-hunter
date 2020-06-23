@@ -29,6 +29,7 @@ function createChartContainer() {
   let newsContainer = document.querySelector(".news-container");
   let divContainer = document.createElement("div");
   divContainer.className = classChartContainer;
+  divContainer.id = idChartContainer;
 
   let btnClose = document.createElement("button");
   btnClose.className = classBtnClose;
@@ -66,6 +67,79 @@ function drawStockChart(ticker, companyName) {
         {
           name: companyName,
           data: chartData,
+          tooltip: {
+            valueDecimals: 2,
+          },
+        },
+      ],
+    });
+  });
+}
+
+function drawShortStockChart(ticker, companyName) {
+  Highcharts.getJSON(urlGetStockSeriesData + ticker + stockApiKey, (data) => {
+    // error check
+    let chartData = getChartData(data);
+    if (!chartData) return;
+
+    createChartContainer();
+
+    // Create the chart
+    Highcharts.stockChart(idChartGraph, {
+      chart: {
+        height: 300,
+      },
+      rangeSelector: {
+        allButtonsEnabled: true,
+        buttons: [
+          {
+            type: "month",
+            count: 3,
+            text: "Day",
+            dataGrouping: {
+              forced: true,
+              units: [["day", [1]]],
+            },
+          },
+          {
+            type: "year",
+            count: 1,
+            text: "Week",
+            dataGrouping: {
+              forced: true,
+              units: [["week", [1]]],
+            },
+          },
+          {
+            type: "all",
+            text: "Month",
+            dataGrouping: {
+              forced: true,
+              units: [["month", [1]]],
+            },
+          },
+        ],
+        buttonTheme: {
+          width: 60,
+        },
+        selected: 2,
+      },
+      title: {
+        text: companyName + " Stock Price",
+      },
+      _navigator: {
+        enabled: false,
+      },
+      series: [
+        {
+          name: companyName,
+          data: chartData,
+          marker: {
+            enabled: null, // auto
+            radius: 3,
+            lineWidth: 1,
+            lineColor: "#FFFFFF",
+          },
           tooltip: {
             valueDecimals: 2,
           },
