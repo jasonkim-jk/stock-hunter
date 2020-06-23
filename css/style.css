@@ -129,6 +129,10 @@ body {
   text-transform: uppercase;
 }
 
+.news-container strong {
+  text-transform: uppercase;
+}
+
 a:hover,
 a:visited,
 a:link,
@@ -145,5 +149,9 @@ a:active {
   .header-container #img-logo {
     max-width: 40vw;
     margin: auto;
+  }
+
+  .news-container .card-img-left {
+    /* flex-shrink: 3; */
   }
 }
