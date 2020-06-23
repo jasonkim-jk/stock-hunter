@@ -62,13 +62,13 @@ const newsApiKey = "&apiKey=dL7uU3UkxInFbsr2IQmvu3gs-vZQP_2ipkqjo2_je8cq1xX1";
 const urlAllArticlesSearch = "https://api.currentsapi.services/v1/search?language=en&country=us&keywords=";
 const urlLatestNews = "https://api.currentsapi.services/v1/latest-news?language=us&country=us";
 
-const classNewsContainer = "card flex-md-row box-shadow h-md-250";
-const classNewsImg = "card-img-left flex-auto d-none d-md-block news-image";
-const classNewsContent = "card-body d-flex flex-column align-items-start";
-const classNewsCategory = "d-inline-block mb-2 text-success";
+const classNewsContainer = "card flex-sm-row box-shadow h-150";
+const classNewsImg = "card-img-left col-3 flex-auto d-none d-sm-block news-image";
+const classNewsContent = "card-body d-sm-flex flex-column align-items-start p-1 pl-2";
+const classNewsCategory = "d-inline-block mb-0 text-success";
 const classNewsTitle = "mb-0 text-dark";
-const classNewsText = "card-text mb-auto";
-const classNewsTime = "mb-1 text-muted";
+const classNewsText = "mb-auto card-text";
+const classNewsTime = "mb-0 text-muted";
 
 const newsContainer = document.querySelector(".news-container");
 const noImage = "../img/noimage.png";
@@ -96,3 +96,25 @@ function addComma(numString) {
   let num = parseFloat(numString);
   return Math.abs(num.toFixed(2).toLocaleString());
 }
+
+// to check the current browser size
+function checkMobileSize() {
+  return $(window).width() < 500 ? true : false;
+}
+
+// to check window size is changing
+$(window).resize(() => {
+  let screenSize = $(window).width();
+  // medium(md) ~ large(lg), margin +17 of real screen size
+  if (screenSize >= 751 && screenSize < 975) {
+    $(".stock-logo").hide(800); // remove stock logo image
+    $(".media-body").addClass("pl-2");
+    $(".news-image").removeClass("d-sm-block");
+    $(".news-image").addClass("d-lg-block");
+  } else {
+    $(".stock-logo").show(800);
+    $(".media-body").removeClass("pl-2");
+    $(".news-image").addClass("d-sm-block");
+    $(".news-image").removeClass("d-lg-block");
+  }
+});

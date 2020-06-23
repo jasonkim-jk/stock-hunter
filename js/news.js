@@ -51,20 +51,21 @@ function addNewsList(data) {
     newsCategory.className = classNewsCategory;
     newsCategory.textContent = data.news[i].category[0];
 
-    const newsTitle = document.createElement("h5");
+    const newsTitle = document.createElement("h6");
     newsTitle.className = classNewsTitle;
-    newsTitle.textContent = data.news[i].title;
+    newsTitle.textContent = data.news[i].title.substr(0, 50) + "...";
 
     const newsText = document.createElement("p");
     newsText.className = classNewsText;
     newsText.style.maxWidth = "auto";
-    newsText.textContent = data.news[i].description;
+    newsText.textContent = data.news[i].description.substr(0, 80) + "...";
 
     const newsTime = document.createElement("div");
     newsTime.className = classNewsTime;
     newsTime.style.textTransform = "capitalize";
     newsTime.textContent =
-      "By" + data.news[i].author + " - " + data.news[i].published.slice(0, data.news[i].published.indexOf("+"));
+      data.news[i].published.slice(0, data.news[i].published.indexOf("+")) +
+      " - By " + data.news[i].author.substr(0, 25);
 
     divContent.append(newsCategory, newsTitle, newsText, newsTime);
     divContainer.append(img, divContent);
