@@ -6,6 +6,9 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
 
     const divStock = document.createElement("div");
     divStock.className = classDivMedia;
+    divStock.setAttribute("data-name", companyName);
+    divStock.setAttribute("data-ticker", ticker);
+    divStock.setAttribute("data-url", logoUrl);
     // stockContainer.appendChild(divStock);  // add as the last child
     stockContainer.insertBefore(divStock, stockContainer.childNodes[0]); // add as the first child
 
@@ -59,6 +62,12 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
     // to delete the selected ticker
     btnClose.addEventListener("click", (event) => {
       event.target.parentNode.parentNode.remove();
+    });
+
+    divStock.addEventListener("click", (event) => {
+      if (checkMobileSize()) {
+        window.$("#stockModal").modal();
+      }
     });
   }).fail((jqxhr, textStatus, error) => {
     console.error(textStatus + ", " + error);
