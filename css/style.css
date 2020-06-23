@@ -117,7 +117,23 @@ body {
 
 /******************* news container *******************/
 .news-container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
+}
+
+.news-container .news-image {
+  width: 12rem;
+  margin: auto;
+}
+
+.news-container strong {
+  text-transform: uppercase;
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none;
 }
 
 /******************* media query *******************/
