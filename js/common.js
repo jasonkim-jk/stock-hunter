@@ -8,7 +8,6 @@ const author = document.querySelector(".blockquote footer");
 const companyList = document.querySelector(".company-data");
 const inputTxt = $("#input-company");
 
-
 ////////////////////////
 // stock container
 // to get company's logo and domain information from the input text (https://clearbit.com/docs?ruby#autocomplete-api)
@@ -21,10 +20,9 @@ const urlGetStockQuote = "https://www.alphavantage.co/query?function=GLOBAL_QUOT
 const urlGetStockSeriesData = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
 // to get stock information (full stock price data of daily time series for 20years)
 const urlGetStockSeriesDataFull =
-"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=";
+  "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=";
 // API key
 const stockApiKey = "&apikey=EGJSU5WH1WOOPPAF";
-
 
 // class of each element for css styling and bootstrap
 const classDivMedia = "media border border-light rounded stock-row";
@@ -51,17 +49,30 @@ const defaultStockList = [
   // { ticker: "GOOGL", companyName: "Alphabet", logoUrl: "https://logo.clearbit.com/abc.xyz" },
 ];
 
-
 ////////////////////////
 // chart container
 const classChartContainer = "col chart-container";
 const idChartGraph = "chart-stock";
 
-
 ////////////////////////
 // news container
+// to get news data related with the selected ticker (https://https://currentsapi.services/)
+const newsApiKey = "&apiKey=dL7uU3UkxInFbsr2IQmvu3gs-vZQP_2ipkqjo2_je8cq1xX1";
+const urlAllArticlesSearch = "https://api.currentsapi.services/v1/search?language=en&country=us&keywords=";
+const urlLatestNews = "https://api.currentsapi.services/v1/latest-news?language=us&country=us";
 
+const classNewsContainer = "card flex-md-row box-shadow h-md-250";
+const classNewsImg = "card-img-left flex-auto d-none d-md-block news-image";
+const classNewsContent = "card-body d-flex flex-column align-items-start";
+const classNewsCategory = "d-inline-block mb-2 text-success";
+const classNewsTitle = "mb-0 text-dark";
+const classNewsText = "card-text mb-auto";
+const classNewsTime = "mb-1 text-muted";
 
+const newsContainer = document.querySelector(".news-container");
+const noImage = "../img/noimage.png";
+
+////////////////////////
 // clear previous results
 function clearList(element) {
   while (element.firstChild) {

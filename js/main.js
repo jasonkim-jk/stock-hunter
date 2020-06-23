@@ -47,6 +47,7 @@ inputTxt.keydown((event) => {
         getTickerName(selectedCompany, logoUrl);
         clearList(companyList);
         inputTxt.val("");
+        getNews(selectedCompany);
         updateQuote();
       });
     }
