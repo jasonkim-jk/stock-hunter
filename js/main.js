@@ -1,5 +1,5 @@
+// event listner of search button
 document.querySelector("#btn-search").addEventListener("click", updateQuote);
-
 
 // event listener of the input text using jQuery
 inputTxt.keydown((event) => {
@@ -82,6 +82,7 @@ function getTickerName(name, logoUrl) {
         tickerName = event.currentTarget.getAttribute("data-set");
         // console.log("Ticker: ", tickerName);
         clearList(companyList);
+        getStockQuoteInfo(tickerName, name, logoUrl);
       });
     }
   }).fail((jqxhr, textStatus, error) => {
