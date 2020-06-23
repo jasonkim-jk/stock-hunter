@@ -1,3 +1,4 @@
+// after getting stock info from API server, make a stock card and show them on the card
 function getStockQuoteInfo(ticker, companyName, logoUrl) {
   $.getJSON(urlGetStockQuote + ticker + stockApiKey, (data) => {
     // console.table(data);
@@ -64,19 +65,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
   });
 }
 
-function addArrowClass(gap) {
-  return gap >= 0 ? classIArrowUp : classIArrowDown;
-}
-
-function addColorClass(gap) {
-  return gap >= 0 ? classStockGreen : classStockRed;
-}
-
-function addComma(numString) {
-  let num = parseFloat(numString);
-  return Math.abs(num.toFixed(2).toLocaleString());
-}
-
+// to add default stock cards
 function getDefaultStock(defaultStock) {
   for (let i = 0; i < defaultStock.length; i++) {
     getStockQuoteInfo(defaultStock[i].ticker, defaultStock[i].companyName, defaultStock[i].logoUrl);

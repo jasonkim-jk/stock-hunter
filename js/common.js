@@ -13,11 +13,18 @@ const inputTxt = $("#input-company");
 // stock container
 // to get company's logo and domain information from the input text (https://clearbit.com/docs?ruby#autocomplete-api)
 const urlGetCompanyLogoName = "https://autocomplete.clearbit.com/v1/companies/suggest?query=";
-
 // to get stock tickers from company names
 const urlGetStockTickerFromName = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=";
+// to get stock information (close/open/high/low price, change, change rate, etc)
 const urlGetStockQuote = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=";
+// to get stock information (stock price data of daily time series)
+const urlGetStockSeriesData = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
+// to get stock information (full stock price data of daily time series for 20years)
+const urlGetStockSeriesDataFull =
+"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=";
+// API key
 const stockApiKey = "&apikey=EGJSU5WH1WOOPPAF";
+
 
 // class of each element for css styling and bootstrap
 const classDivMedia = "media border border-light rounded stock-row";
@@ -44,8 +51,11 @@ const defaultStockList = [
   // { ticker: "GOOGL", companyName: "Alphabet", logoUrl: "https://logo.clearbit.com/abc.xyz" },
 ];
 
+
 ////////////////////////
 // chart container
+const classChartContainer = "col chart-container";
+const idChartGraph = "chart-stock";
 
 
 ////////////////////////
@@ -57,4 +67,20 @@ function clearList(element) {
   while (element.firstChild) {
     element.removeChild(element.lastChild);
   }
+}
+
+// to get arrow class name
+function addArrowClass(gap) {
+  return gap >= 0 ? classIArrowUp : classIArrowDown;
+}
+
+// to get color class name
+function addColorClass(gap) {
+  return gap >= 0 ? classStockGreen : classStockRed;
+}
+
+// to add 3 digit comma
+function addComma(numString) {
+  let num = parseFloat(numString);
+  return Math.abs(num.toFixed(2).toLocaleString());
 }
