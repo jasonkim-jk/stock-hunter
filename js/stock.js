@@ -103,7 +103,10 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
 // to delete the selected ticker
 function addDeleteButton(element) {
   element.addEventListener("click", (event) => {
-    event.target.parentNode.parentNode.remove();
+    event.target.parentNode.parentNode.classList.add("stock-remove");
+    setTimeout(() => {
+      event.target.parentNode.parentNode.remove();
+    }, 1000)
 
     // delete update timer id
     const timerID = event.target.parentNode.parentNode.getAttribute("data-timer-id");
@@ -114,6 +117,8 @@ function addDeleteButton(element) {
 // a stock card is clicked, open a modal when mobile size or update other information
 function addEventListenerForCart(element, ticker, company, url) {
   element.addEventListener("click", (event) => {
+    if ((event.target.className === classBtnClose)) return;
+
     if (checkMobileSize()) {
       $("#myModalLabel").text(company);
       $("#myModalLabel").attr("data-ticker", ticker);

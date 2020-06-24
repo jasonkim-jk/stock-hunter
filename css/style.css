@@ -73,6 +73,11 @@ body {
   animation-name: slidein;
 }
 
+.stock-container .stock-remove {
+  animation-duration: 1s;
+  animation-name: slideout;
+}
+
 .stock-container .stock-logo {
   width: 4rem;
   height: auto;
@@ -191,5 +196,17 @@ a:active {
   to {
     margin-left: 0%;
     width: 100%;
+  }
+}
+
+@keyframes slideout {
+  from {
+    margin-left: 0%;
+    width: 100%;
+  }
+
+  to {
+    margin-left: 100%;
+    width: 300%;
   }
 }
