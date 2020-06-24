@@ -29,7 +29,8 @@ function addNewsList(data) {
   clearList(tempNewsContainer);
 
   // make news element up to 10
-  for (let i = 0; i < data.news.length && i < 10; i++) {
+  // for (let i = 0; i < data.news.length && i < 10; i++) {
+  for (let i = 0; i < data.news.length; i++) {
     // news page link
     const a = document.createElement("a");
     a.href = data.news[i].url;

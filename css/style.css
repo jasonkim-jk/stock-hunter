@@ -24,7 +24,7 @@ body {
 }
 
 .header-container #img-logo {
-  max-width: 13vw;
+  max-height: 3.5rem;
   margin: auto;
 }
 
@@ -171,13 +171,10 @@ a:active {
   body {
     width: 100vw;
   }
+}
 
+@media screen and (max-width: 767px) and (min-width: 576px) {
   .header-container #img-logo {
-    max-width: 40vw;
-    margin: auto;
-  }
-
-  .news-container .card-img-left {
-    /* flex-shrink: 3; */
+    max-height: 2.5rem;
   }
 }
