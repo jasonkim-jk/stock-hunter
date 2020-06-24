@@ -1,4 +1,8 @@
 ////////////////////////
+// Feature set
+const enableUpdateTimer = false;
+
+////////////////////////
 // header container
 // to get random quotes
 const urlGetQuote = "https://api.quotable.io/random";
@@ -139,16 +143,16 @@ $(window).resize(() => {
 
 // Regular trading hours for the U.S. stock market is 9:30 a.m. to 4 p.m
 function stockMarketHour() {
-  const opening = "09:30";
-  const closing = "16:00";
+  if (!enableUpdateTimer) return;
 
   const current = new Date();
-  const currTime = current.getHours() + ":" + current.getMinutes();
+  const currTime = current.getHours();
 
-  if (Date.parse(currTime) >= Date.parse(opening) && Date.parse(currTime) <= Date.parse(closing)) {
-    console.log("Stock market is running")
+  if (currTime >= 6 && currTime <= 11) {
+    // console.log("Stock market is running");
     return true;
   } else {
+    // console.log("Stock market is closed: ", currTime);
     return false;
   }
 }
