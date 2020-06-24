@@ -98,7 +98,7 @@ function addColorClass(gap) {
 // to add 3 digit comma
 function addComma(numString) {
   let num = parseFloat(numString);
-  return (Math.abs(num)).toLocaleString("en-US");
+  return Math.abs(num).toLocaleString("en-US");
 }
 
 // to check the current browser size
@@ -136,3 +136,19 @@ $(window).resize(() => {
     $(".news-image").removeClass("d-lg-block");
   }
 });
+
+// Regular trading hours for the U.S. stock market is 9:30 a.m. to 4 p.m
+function stockMarketHour() {
+  const opening = "09:30";
+  const closing = "16:00";
+
+  const current = new Date();
+  const currTime = current.getHours() + ":" + current.getMinutes();
+
+  if (Date.parse(currTime) >= Date.parse(opening) && Date.parse(currTime) <= Date.parse(closing)) {
+    console.log("Stock market is running")
+    return true;
+  } else {
+    return false;
+  }
+}

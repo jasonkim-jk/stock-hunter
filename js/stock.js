@@ -134,8 +134,7 @@ function updateStockPriceInfo(ticker, companyName) {
 // to update stock price every minute
 function makeUpdateTimer(element, ticker, companyName) {
   const timerID = setInterval(() => {
-    console.log("update test");
-    updateStockPriceInfo(ticker, companyName);
+    if (stockMarketHour()) updateStockPriceInfo(ticker, companyName);
   }, 60000);
   element.setAttribute("data-timer-id", timerID);
 }
