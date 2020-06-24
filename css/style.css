@@ -69,6 +69,8 @@ body {
   border-color: #eaeaea;
   min-height: 5.5rem;
   cursor: pointer;
+  animation-duration: 1s;
+  animation-name: slidein;
 }
 
 .stock-container .stock-logo {
@@ -176,5 +178,18 @@ a:active {
 @media screen and (max-width: 767px) and (min-width: 576px) {
   .header-container #img-logo {
     max-height: 2.5rem;
+  }
+}
+
+/******************* Animation *******************/
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
   }
 }
