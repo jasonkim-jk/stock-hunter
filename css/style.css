@@ -12,7 +12,6 @@ html {
 
 body {
   box-sizing: border-box;
-  /* width: 80vw; */
   margin: auto;
 }
 
@@ -34,6 +33,7 @@ body {
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .header-container .company {
   height: 2rem;
 }
@@ -62,17 +62,11 @@ body {
 }
 
 .header-container .char {
-  /* font-size: 40px;
-  height: 40px; */
   animation: fade-in 1s ease-out 1 both;
   display: inline-block;
 }
 
 /******************* stock container *******************/
-.stock-container {
-  /* border: 1px solid gray; */
-}
-
 .stock-container .stock-row:nth-child(even) {
   background-color: rgb(245, 245, 245);
   border-radius: 1rem;
@@ -143,7 +137,6 @@ body {
   min-height: 400px;
   margin: 0.5rem 0;
   padding: 0 0.2rem;
-  /* border: 1px solid blue; */
 }
 
 /******************* news container *******************/

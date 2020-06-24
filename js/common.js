@@ -49,7 +49,7 @@ const classIArrowDown = "fa-long-arrow-alt-down";
 const stockContainer = document.querySelector(".stock-container");
 const defaultStockList = [
   { ticker: "AMZN", companyName: "Amazon", logoUrl: "https://logo.clearbit.com/amazon.com" },
-  // { ticker: "TSLA", companyName: "Tesla", logoUrl: "https://logo.clearbit.com/tesla.com" },
+  { ticker: "TSLA", companyName: "Tesla", logoUrl: "https://logo.clearbit.com/tesla.com" },
   // { ticker: "GOOGL", companyName: "Alphabet", logoUrl: "https://logo.clearbit.com/abc.xyz" },
 ];
 
@@ -125,22 +125,6 @@ function checkScreenMoreThanMD() {
   return screenSize >= 751 ? true : false;
 }
 
-// to check window size is changing
-$(window).resize(() => {
-  // medium(md) ~ large(lg), margin +17 of real screen size
-  if (checkScreenMD()) {
-    $(".stock-logo").hide(800); // remove stock logo image
-    $(".media-body").addClass("pl-2");
-    $(".news-image").removeClass("d-sm-block");
-    $(".news-image").addClass("d-lg-block");
-  } else {
-    $(".stock-logo").show(800);
-    $(".media-body").removeClass("pl-2");
-    $(".news-image").addClass("d-sm-block");
-    $(".news-image").removeClass("d-lg-block");
-  }
-});
-
 // Regular trading hours for the U.S. stock market is 9:30 a.m. to 4 p.m
 function stockMarketHour() {
   if (!enableUpdateTimer) return;
@@ -156,3 +140,19 @@ function stockMarketHour() {
     return false;
   }
 }
+
+// to check window size is changing
+$(window).resize(() => {
+  // medium(md) ~ large(lg), margin +17 of real screen size
+  if (checkScreenMD()) {
+    $(".stock-logo").hide(800); // remove stock logo image
+    $(".media-body").addClass("pl-2");
+    $(".news-image").removeClass("d-sm-block");
+    $(".news-image").addClass("d-lg-block");
+  } else {
+    $(".stock-logo").show(800);
+    $(".media-body").removeClass("pl-2");
+    $(".news-image").addClass("d-sm-block");
+    $(".news-image").removeClass("d-lg-block");
+  }
+});
