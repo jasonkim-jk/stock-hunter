@@ -15,6 +15,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
       divStock.className = classDivMedia;
       divStock.setAttribute("data-name", companyName);
       divStock.setAttribute("data-ticker", ticker);
+      divStock.setAttribute("data-url", logoUrl);
       // stockContainer.appendChild(divStock);  // add as the last child
       stockContainer.insertBefore(divStock, stockContainer.childNodes[0]); // add as the first child
 
@@ -78,6 +79,9 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
 
       // update stock info. every 1 minute
       makeUpdateTimer(divStock, ticker, companyName);
+
+      // to save current stock cards info to local storage
+      saveStockList();
     } else {
       // update the previous stock price info
       const stockContainer = document.querySelector(`div[data-ticker=${ticker}]`);
@@ -106,7 +110,7 @@ function addDeleteButton(element) {
     event.target.parentNode.parentNode.classList.add("stock-remove");
     setTimeout(() => {
       event.target.parentNode.parentNode.remove();
-    }, 1000)
+    }, 1000);
 
     // delete update timer id
     const timerID = event.target.parentNode.parentNode.getAttribute("data-timer-id");
@@ -117,7 +121,7 @@ function addDeleteButton(element) {
 // a stock card is clicked, open a modal when mobile size or update other information
 function addEventListenerForCart(element, ticker, company, url) {
   element.addEventListener("click", (event) => {
-    if ((event.target.className === classBtnClose)) return;
+    if (event.target.className === classBtnClose) return;
 
     if (checkMobileSize()) {
       $("#myModalLabel").text(company);
@@ -146,6 +150,10 @@ function makeUpdateTimer(element, ticker, companyName) {
 
 // to add default stock cards
 function getDefaultStock(defaultStock) {
+  if (useLocalStorage) {
+    defaultStock = loadStockList();
+  }
+
   for (let i = 0; i < defaultStock.length; i++) {
     getStockQuoteInfo(defaultStock[i].ticker, defaultStock[i].companyName, defaultStock[i].logoUrl);
   }
