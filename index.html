@@ -30,6 +30,7 @@
       </div>
     </div>
 
+    <!-- Front page contents -->
     <div class="container header-container">
       <div class="row">
         <div class="col-sm-3 mt-2 mr-0">
@@ -37,13 +38,7 @@
         </div>
         <div class="col-sm-9 input-group input-group-lg mt-2 align-self-center">
           <!-- Ticker Search -->
-          <input
-            type="text"
-            class="form-control"
-            id="input-company"
-            placeholder="Company Name"
-            pattern="^[A-Za-z]+$"
-          />
+          <input type="text" class="form-control" id="input-company" placeholder="Company Name" pattern="^[A-Za-z]+$" />
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" id="btn-search" type="button">Search</button>
           </div>
@@ -52,6 +47,7 @@
       <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-9 mt-2">
+          <!-- Company name and ticker autocomplete suggestion -->
           <div class="company-data"></div>
         </div>
       </div>
@@ -69,13 +65,14 @@
     <!-- Stock contents -->
     <div class="container">
       <div class="row">
+        <!-- Stock cards container -->
         <div class="col-md-5 container">
-          <!-- Stock cards -->
           <div class="row flex-column stock-container"></div>
         </div>
+        <!-- Stock chart and news container -->
         <div class="col-md-7 container">
           <div class="row flex-column chart-news-container">
-            <!-- Stock chart -->
+            <!-- Stock chart - created by JS -->
             <!-- <div class="col chart-container" id="chart-container"></div> -->
             <!-- Stock news -->
             <div class="col news-container pl-0 pr-0" id="news-container"></div>
