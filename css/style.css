@@ -55,6 +55,19 @@ body {
   font-size: 1.1rem;
 }
 
+.header-container .blockquote-foot {
+  display: block;
+  font-size: 80%;
+  color: #6c757d;
+}
+
+.header-container .char {
+  /* font-size: 40px;
+  height: 40px; */
+  animation: fade-in 1s ease-out 1 both;
+  display: inline-block;
+}
+
 /******************* stock container *******************/
 .stock-container {
   /* border: 1px solid gray; */
@@ -69,6 +82,13 @@ body {
   border-color: #eaeaea;
   min-height: 5.5rem;
   cursor: pointer;
+  animation-duration: 1s;
+  animation-name: slidein;
+}
+
+.stock-container .stock-remove {
+  animation-duration: 1s;
+  animation-name: slideout;
 }
 
 .stock-container .stock-logo {
@@ -176,5 +196,41 @@ a:active {
 @media screen and (max-width: 767px) and (min-width: 576px) {
   .header-container #img-logo {
     max-height: 2.5rem;
+  }
+}
+
+/******************* Animation *******************/
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@keyframes slideout {
+  from {
+    margin-left: 0%;
+    width: 100%;
+  }
+
+  to {
+    margin-left: 100%;
+    width: 300%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: perspective(500px) translate3d(-35px, -40px, -150px) rotate3d(1, -1, 0, 35deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(500px) translate3d(0, 0, 0);
   }
 }
