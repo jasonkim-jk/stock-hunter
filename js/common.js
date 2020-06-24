@@ -25,7 +25,7 @@ const urlGetStockSeriesDataFull =
 const stockApiKey = "&apikey=EGJSU5WH1WOOPPAF";
 
 // class of each element for css styling and bootstrap
-const classDivMedia = "media border border-light rounded stock-row";
+const classDivMedia = "media border rounded align-items-center stock-row";
 const classImgLogo = "stock-logo rounded";
 const classDivBody = "media-body";
 const classBtnClose = "close";
@@ -98,7 +98,7 @@ function addColorClass(gap) {
 // to add 3 digit comma
 function addComma(numString) {
   let num = parseFloat(numString);
-  return Math.abs(num.toFixed(2).toLocaleString());
+  return (Math.abs(num)).toLocaleString("en-US");
 }
 
 // to check the current browser size
@@ -111,11 +111,20 @@ function checkModal() {
   return $("#stockModal").hasClass("show") ? true : false;
 }
 
+function checkScreenMD() {
+  let screenSize = $(window).width();
+  return screenSize >= 751 && screenSize < 975 ? true : false;
+}
+
+function checkScreenMoreThanMD() {
+  let screenSize = $(window).width();
+  return screenSize >= 751 ? true : false;
+}
+
 // to check window size is changing
 $(window).resize(() => {
-  let screenSize = $(window).width();
   // medium(md) ~ large(lg), margin +17 of real screen size
-  if (screenSize >= 751 && screenSize < 975) {
+  if (checkScreenMD()) {
     $(".stock-logo").hide(800); // remove stock logo image
     $(".media-body").addClass("pl-2");
     $(".news-image").removeClass("d-sm-block");

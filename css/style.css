@@ -43,8 +43,16 @@ body {
   text-align: left;
 }
 
+.header-container #btn-search {
+  max-height: 3rem;
+}
+
 .header-container .blockquote {
   margin-bottom: 0.2rem;
+}
+
+.header-container .blockquote p {
+  font-size: 1.1rem;
 }
 
 /******************* stock container *******************/
@@ -58,7 +66,8 @@ body {
 }
 
 .stock-container .stock-row {
-  height: 5.5rem;
+  border-color: #eaeaea;
+  min-height: 5.5rem;
   cursor: pointer;
 }
 
@@ -118,19 +127,13 @@ body {
 }
 
 /******************* news container *******************/
-.news-container {
-  /* border: 1px solid red; */
-}
-
+.news-container-modal .news-image,
 .news-container .news-image {
   width: 12rem;
   margin: auto;
 }
 
-.news-container strong {
-  text-transform: uppercase;
-}
-
+.news-container-modal strong,
 .news-container strong {
   text-transform: uppercase;
 }
@@ -143,17 +146,24 @@ a:active {
 }
 
 /******************* modal container *******************/
+#stockModal {
+  background-color: white;
+}
+
 .modal-dialog {
   width: 100vw;
   height: 100vh;
   padding: 0;
   margin: 0;
-  background-color: white;
 }
 
 .modal-content {
   height: 100%;
   border-radius: 0.5rem;
+}
+
+.modal-content .modal-stock-logo {
+  width: 2rem;
 }
 
 /******************* media query *******************/
