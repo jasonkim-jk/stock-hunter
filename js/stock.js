@@ -1,7 +1,7 @@
 // after getting stock info from API server, make a stock card and show them on the card
 function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
   $.getJSON(urlGetStockQuote + ticker + stockApiKey, (data) => {
-    console.dir(data);
+    // console.dir(data);
     const changePercent = data["Global Quote"]["10. change percent"];
     if (!changePercent) {
       alert("[Error] Stock data error from server");
