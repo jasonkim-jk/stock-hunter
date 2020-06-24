@@ -84,7 +84,7 @@ function getTickerName(name, logoUrl) {
         // console.log("Ticker: ", tickerName);
         clearList(companyList);
         getStockQuoteInfo(tickerName, name, logoUrl);
-        drawStockChart(tickerName, name);
+        drawStockChart(tickerName, name, idChartContainer, idChartGraph);
       });
     }
   }).fail((jqxhr, textStatus, error) => {
