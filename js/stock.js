@@ -2,7 +2,13 @@
 function getStockQuoteInfo(ticker, companyName, logoUrl) {
   $.getJSON(urlGetStockQuote + ticker + stockApiKey, (data) => {
     // console.table(data);
-    const gapValue = parseFloat(data["Global Quote"]["10. change percent"]);
+    const changePercent = data["Global Quote"]["10. change percent"];
+    if (!changePercent) {
+      alert("Data error from server");
+      return;
+    }
+
+    const gapValue = parseFloat(changePercent);
 
     const divStock = document.createElement("div");
     divStock.className = classDivMedia;
@@ -13,6 +19,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
     const imgLogo = document.createElement("img");
     imgLogo.src = logoUrl;
     imgLogo.className = classImgLogo;
+    imgLogo.id = "logoImg" + companyName;
     imgLogo.alt = "Logo image of " + companyName;
 
     // Company name
@@ -55,6 +62,10 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
     spanPercent.classList.add(classSpanStockPercent, addColorClass(gapValue));
     spanPercent.textContent = addComma(data["Global Quote"]["10. change percent"]) + "%";
     divStockText.append(spanPrice, iArrow, spanChange, spanPercent);
+
+    if (checkScreenMD()) {
+      $(`#logoImg${companyName}`).hide(800);
+    }
 
     // to delete the selected ticker
     btnClose.addEventListener("click", (event) => {
