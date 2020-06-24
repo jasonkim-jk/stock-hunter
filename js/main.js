@@ -59,7 +59,7 @@ inputTxt.keydown((event) => {
 // get a stock ticker from a company name
 function getTickerName(name, logoUrl) {
   if (!name) {
-    alert("Company name error~!");
+    alert("[Error] Company name data error~!");
     return;
   }
 

@@ -25,7 +25,7 @@ const urlGetStockSeriesDataFull =
 const stockApiKey = "&apikey=EGJSU5WH1WOOPPAF";
 
 // class of each element for css styling and bootstrap
-const classDivMedia = "media border border-light rounded align-items-center stock-row";
+const classDivMedia = "media border rounded align-items-center stock-row";
 const classImgLogo = "stock-logo rounded";
 const classDivBody = "media-body";
 const classBtnClose = "close";
@@ -114,6 +114,11 @@ function checkModal() {
 function checkScreenMD() {
   let screenSize = $(window).width();
   return (screenSize >= 751 && screenSize < 975) ? true : false;
+}
+
+function checkScreenMoreThanMD() {
+  let screenSize = $(window).width();
+  return screenSize >= 751 ? true : false;
 }
 
 // to check window size is changing

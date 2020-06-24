@@ -4,7 +4,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
     // console.table(data);
     const changePercent = data["Global Quote"]["10. change percent"];
     if (!changePercent) {
-      alert("Data error from server");
+      alert("[Error] Stock data error from server");
       return;
     }
 
@@ -78,6 +78,9 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
         $("#myModalLabel").attr("data-ticker", ticker);
         $("#myModalLabel").attr("data-logoUrl", logoUrl);
         $("#stockModal").modal();
+      } else if(checkScreenMoreThanMD()) {
+        getNews(companyName);
+        drawStockChart(ticker, companyName, idChartContainer, idChartGraph);
       }
     });
   }).fail((jqxhr, textStatus, error) => {

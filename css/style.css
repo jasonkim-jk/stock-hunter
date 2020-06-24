@@ -62,6 +62,7 @@ body {
 }
 
 .stock-container .stock-row {
+  border-color: #eaeaea;
   min-height: 5.5rem;
   cursor: pointer;
 }

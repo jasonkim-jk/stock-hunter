@@ -3,7 +3,10 @@ function getChartData(data) {
   // workaround for the free open-api problem
   // frequent queries can cause empty data problem
   // "Note" property means error!
-  if (data.hasOwnProperty("Note")) return false;
+  if (data.hasOwnProperty("Note")) {
+    alert("[Error] Wrong chart data from server");
+    return false;
+  }
 
   // chart data form: [[timestamp, value], [timestamp, value], ...]
   let stockChartData = [];
