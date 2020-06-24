@@ -59,6 +59,7 @@ body {
 
 .stock-container .stock-row {
   height: 5.5rem;
+  cursor: pointer;
 }
 
 .stock-container .stock-logo {
@@ -72,6 +73,7 @@ body {
   margin: 0.5rem;
 }
 
+.modal-content .close,
 .stock-container .close,
 .chart-container .close {
   color: coral;
@@ -138,6 +140,20 @@ a:visited,
 a:link,
 a:active {
   text-decoration: none;
+}
+
+/******************* modal container *******************/
+.modal-dialog {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+}
+
+.modal-content {
+  height: 100%;
+  border-radius: 0.5rem;
 }
 
 /******************* media query *******************/

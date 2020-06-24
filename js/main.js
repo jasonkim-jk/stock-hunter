@@ -32,7 +32,7 @@ inputTxt.keydown((event) => {
       const companyDomain = document.createElement("span");
 
       company.className = "company";
-      company.setAttribute("data-set", data[i].name);
+      company.setAttribute("data-cname", data[i].name);
       companyLogoImg.setAttribute("src", data[i].logo);
       companyLogoImg.className = "company-logo";
       companyName.textContent = data[i].name;
@@ -42,7 +42,7 @@ inputTxt.keydown((event) => {
 
       // to get which row(company) is selected
       company.addEventListener("click", (event) => {
-        const selectedCompany = event.currentTarget.getAttribute("data-set");
+        const selectedCompany = event.currentTarget.getAttribute("data-cname");
         const logoUrl = event.currentTarget.firstChild.src;
         getTickerName(selectedCompany, logoUrl);
         clearList(companyList);
@@ -71,7 +71,7 @@ function getTickerName(name, logoUrl) {
       const companyName = document.createElement("span");
 
       ticker.textContent = data.bestMatches[i]["1. symbol"];
-      company.setAttribute("data-set", ticker.textContent);
+      company.setAttribute("data-ticker", ticker.textContent);
       company.className = "pl-3";
       companyName.textContent = ` (${data.bestMatches[i]["2. name"]}, ${data.bestMatches[i]["9. matchScore"]})`;
 
@@ -80,11 +80,11 @@ function getTickerName(name, logoUrl) {
 
       // to get which row(ticker) is selected
       company.addEventListener("click", (event) => {
-        tickerName = event.currentTarget.getAttribute("data-set");
+        tickerName = event.currentTarget.getAttribute("data-ticker");
         // console.log("Ticker: ", tickerName);
         clearList(companyList);
         getStockQuoteInfo(tickerName, name, logoUrl);
-        drawStockChart(tickerName, name);
+        drawStockChart(tickerName, name, idChartContainer, idChartGraph);
       });
     }
   }).fail((jqxhr, textStatus, error) => {

@@ -21,15 +21,25 @@ function getChartData(data) {
 }
 
 // make a new stock chart element
-function createChartContainer() {
-  // the previous chart should be deleted
-  $("#chart-container").remove();
+function createChartContainer(container) {
+  let tempChartNewsContainer = "";
+  let tempNewsContainer = "";
 
-  let container = document.querySelector(".chart-news-container");
-  let newsContainer = document.querySelector(".news-container");
+  // to show news data on the modal
+  if (checkMobileSize() && checkModal()) {
+    tempChartNewsContainer = chartNewsContainerModal;
+    tempNewsContainer = newsContainerModal;
+  } else {
+    tempChartNewsContainer = chartNewsContainer;
+    tempNewsContainer = newsContainer;
+  }
+
+  // the previous chart should be deleted
+  $(`#${container}`).remove();
+
   let divContainer = document.createElement("div");
   divContainer.className = classChartContainer;
-  divContainer.id = idChartContainer;
+  divContainer.id = container;
 
   let btnClose = document.createElement("button");
   btnClose.className = classBtnClose;
@@ -38,7 +48,7 @@ function createChartContainer() {
   let divChart = document.createElement("div");
   divChart.id = idChartGraph;
   divContainer.append(btnClose, divChart);
-  container.insertBefore(divContainer, newsContainer);
+  tempChartNewsContainer.insertBefore(divContainer, tempNewsContainer);
 
   // to delete stock chart
   btnClose.addEventListener("click", (event) => {
@@ -47,16 +57,16 @@ function createChartContainer() {
 }
 
 // draw stock chart using Highcharts API
-function drawStockChart(ticker, companyName) {
+function drawStockChart(ticker, companyName, container, id) {
   Highcharts.getJSON(urlGetStockSeriesData + ticker + stockApiKey, (data) => {
     // error check
     let chartData = getChartData(data);
     if (!chartData) return;
 
-    createChartContainer();
+    createChartContainer(container);
 
     // Create the chart
-    Highcharts.stockChart(idChartGraph, {
+    Highcharts.stockChart(id, {
       rangeSelector: {
         selected: 1,
       },
@@ -76,16 +86,16 @@ function drawStockChart(ticker, companyName) {
   });
 }
 
-function drawShortStockChart(ticker, companyName) {
+function drawShortStockChart(ticker, companyName, container, id) {
   Highcharts.getJSON(urlGetStockSeriesData + ticker + stockApiKey, (data) => {
     // error check
     let chartData = getChartData(data);
     if (!chartData) return;
 
-    createChartContainer();
+    createChartContainer(container);
 
     // Create the chart
-    Highcharts.stockChart(idChartGraph, {
+    Highcharts.stockChart(id, {
       chart: {
         height: 300,
       },

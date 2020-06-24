@@ -17,8 +17,16 @@ function getNews(keyWord, category = "") {
 
 // add news list for the selected ticker
 function addNewsList(data) {
-  // console.dir(data);
-  clearList(newsContainer);
+  let tempNewsContainer = "";
+
+  // to show news data on the modal
+  if (checkMobileSize() && checkModal()) {
+    tempNewsContainer = newsContainerModal;
+  } else {
+    tempNewsContainer = newsContainer;
+  }
+
+  clearList(tempNewsContainer);
 
   // make news element up to 10
   for (let i = 0; i < data.news.length && i < 10; i++) {
@@ -26,7 +34,7 @@ function addNewsList(data) {
     const a = document.createElement("a");
     a.href = data.news[i].url;
     a.target = "_blank";
-    newsContainer.appendChild(a);
+    tempNewsContainer.appendChild(a);
 
     const divContainer = document.createElement("div");
     divContainer.className = classNewsContainer;

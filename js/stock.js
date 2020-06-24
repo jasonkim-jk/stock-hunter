@@ -60,6 +60,15 @@ function getStockQuoteInfo(ticker, companyName, logoUrl) {
     btnClose.addEventListener("click", (event) => {
       event.target.parentNode.parentNode.remove();
     });
+
+    divStock.addEventListener("click", (event) => {
+      if (checkMobileSize()) {
+        $("#myModalLabel").text(companyName);
+        $("#myModalLabel").attr("data-ticker", ticker);
+        $("#myModalLabel").attr("data-logoUrl", logoUrl);
+        $("#stockModal").modal();
+      }
+    });
   }).fail((jqxhr, textStatus, error) => {
     console.error(textStatus + ", " + error);
   });
