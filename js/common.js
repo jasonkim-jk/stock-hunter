@@ -1,6 +1,7 @@
 ////////////////////////
 // Feature set
 const enableUpdateTimer = false;
+const useLocalStorage = true;
 
 ////////////////////////
 // header container
@@ -156,3 +157,28 @@ $(window).resize(() => {
     $(".news-image").removeClass("d-lg-block");
   }
 });
+
+// to save current stock cards list
+function saveStockList() {
+  if (!useLocalStorage) return;
+
+  const element = stockContainer;
+  let list = [];
+
+  for (let i = 0; i < element.children.length; i++) {
+    let stock = { ticker: "", companyName: "", logoUrl: "" };
+    stock.ticker = element.children[i].dataset.ticker;
+    stock.companyName = element.children[i].dataset.name;
+    stock.logoUrl = element.children[i].dataset.url;
+    list.push(stock);
+  }
+
+  localStorage.setItem("stocks", JSON.stringify(list));
+}
+
+// to get saved stock cards list
+function loadStockList() {
+  if (!useLocalStorage) return;
+  console.log("Saved stock cards information loaded~!")
+  return JSON.parse(localStorage.getItem("stocks"));
+}
