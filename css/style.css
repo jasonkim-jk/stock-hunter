@@ -196,7 +196,7 @@ a:active {
 @keyframes slidein {
   from {
     margin-left: 100%;
-    width: 300%;
+    width: 50%;
   }
 
   to {
@@ -213,7 +213,7 @@ a:active {
 
   to {
     margin-left: 100%;
-    width: 300%;
+    width: 50%;
   }
 }
 
