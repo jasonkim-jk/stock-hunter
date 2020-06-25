@@ -48,7 +48,6 @@ inputTxt.keydown((event) => {
         clearList(companyList);
         inputTxt.val("");
         if (!checkMobileSize()) getNews(selectedCompany);
-        updateQuote();
       });
     }
   }).fail((jqxhr, textStatus, error) => {
@@ -85,6 +84,7 @@ function getTickerName(name, logoUrl) {
         clearList(companyList);
         getStockQuoteInfo(tickerName, name, logoUrl);
         if (!checkMobileSize()) drawStockChart(tickerName, name, idChartContainer, idChartGraph);
+        updateQuote();
       });
     }
   }).fail((jqxhr, textStatus, error) => {

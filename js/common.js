@@ -80,7 +80,7 @@ const chartNewsContainer = document.querySelector(".chart-news-container");
 const newsContainer = document.querySelector(".news-container");
 const chartNewsContainerModal = document.querySelector(".chart-news-container-modal");
 const newsContainerModal = document.querySelector(".news-container-modal");
-const noImage = "../img/noimage.png";
+const noImage = "img/noimage.png";
 
 ////////////////////////
 // clear previous results
@@ -178,7 +178,11 @@ function saveStockList() {
 
 // to get saved stock cards list
 function loadStockList() {
-  if (!useLocalStorage) return;
-  console.log("Saved stock cards information loaded~!")
-  return JSON.parse(localStorage.getItem("stocks"));
+  if (useLocalStorage && window.localStorage) {
+    console.log("Saved stock cards information loaded~!");
+    return JSON.parse(localStorage.getItem("stocks"));
+  } else {
+    console.log("localStorage loading failed");
+    return null;
+  }
 }

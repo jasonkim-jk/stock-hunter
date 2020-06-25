@@ -150,8 +150,10 @@ function makeUpdateTimer(element, ticker, companyName) {
 
 // to add default stock cards
 function getDefaultStock(defaultStock) {
-  if (useLocalStorage) {
-    defaultStock = loadStockList();
+  const savedList = loadStockList();
+
+  if (savedList !== null) {
+    defaultStock = savedList;
   }
 
   for (let i = 0; i < defaultStock.length; i++) {
