@@ -125,6 +125,7 @@ function addEventListenerForCard(element, ticker, company, url) {
     if (event.target.className === classBtnClose) return;
 
     if (checkMobileSize()) {
+      event.target.style.zIndex = 0;
       $("#myModalLabel").text(company);
       $("#myModalLabel").attr("data-ticker", ticker);
       $("#myModalLabel").attr("data-logoUrl", url);
