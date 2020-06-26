@@ -158,6 +158,13 @@ $(window).resize(() => {
   }
 });
 
+// to check screen orientation to reload modal
+$(window).on("orientationchange", () => {
+  if ($("#stockModal").hasClass("show")) {
+    // $("#stockModal").modal("handleUpdate");
+  }
+});
+
 // to save current stock cards list
 function saveStockList() {
   if (!useLocalStorage) return;

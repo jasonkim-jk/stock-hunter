@@ -29,13 +29,29 @@ body {
 
 .header-container .company-logo {
   width: 1.4rem;
-  margin: 0.2rem 0.5rem 0.2rem 1rem;
+  margin: 0.2rem 1rem;
   border-radius: 4px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.header-container .company-data {
+  text-align: left;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
 }
 
 .header-container .company {
   height: 2rem;
+  cursor: pointer;
+  overflow: hidden;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.header-container .company:hover {
+  cursor: pointer;
+  background-color: rgb(245, 245, 245);
+  text-align: left;
 }
 
 .header-container .company-data {
