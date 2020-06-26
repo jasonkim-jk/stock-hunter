@@ -29,7 +29,7 @@ function createChartContainer(container) {
   let tempNewsContainer = "";
 
   // to show news data on the modal
-  if (checkMobileSize() && checkModal()) {
+  if (checkModalCondition()) {
     tempChartNewsContainer = chartNewsContainerModal;
     tempNewsContainer = newsContainerModal;
     // the previous chart should be deleted
