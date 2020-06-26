@@ -31,14 +31,14 @@ inputTxt.keydown((event) => {
       const companyName = document.createElement("span");
       const companyDomain = document.createElement("span");
 
-      company.className = "company";
+      company.className = "d-flex justify-content-between company";
       company.setAttribute("data-cname", data[i].name);
-      companyLogoImg.setAttribute("src", data[i].logo);
+      companyLogoImg.src = data[i].logo;
       companyLogoImg.className = "company-logo align-middle";
       companyName.textContent = data[i].name;
       companyName.className = "align-middle font-weight-bold";
       companyDomain.textContent = ` (${data[i].domain})`;
-      companyDomain.className = "align-middle";
+      companyDomain.className = "ml-auto align-middle pr-2";
       company.append(companyLogoImg, companyName, companyDomain);
       companyList.appendChild(company);
 
@@ -74,9 +74,9 @@ function getTickerName(name, logoUrl) {
       ticker.textContent = data.bestMatches[i]["1. symbol"];
       ticker.className = "align-middle font-weight-bold";
       company.setAttribute("data-ticker", ticker.textContent);
-      company.className = "pl-3 company";
+      company.className = "pl-3 d-flex justify-content-between company";
       companyName.textContent = ` (${data.bestMatches[i]["2. name"]}, ${data.bestMatches[i]["9. matchScore"]})`;
-      companyName.className = "align-middle";
+      companyName.className = "align-middle pr-2";
 
       company.append(ticker, companyName);
       companyList.appendChild(company);

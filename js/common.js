@@ -90,6 +90,33 @@ function clearList(element) {
   }
 }
 
+// in case of 403 error while loading image, the default image will is displayed
+window.addEventListener(
+  "error",
+  windowErrorCb,
+  {
+    capture: true,
+  },
+  true
+);
+
+function windowErrorCb(event) {
+  let target = event.target;
+  let isImg = target.tagName.toLowerCase() === "img";
+  if (isImg) {
+    imgErrorCb();
+    return;
+  }
+
+  function imgErrorCb() {
+    let isImgErrorHandled = target.hasAttribute("data-src-error");
+    if (!isImgErrorHandled) {
+      target.setAttribute("data-src-error", "handled");
+      target.src = noImage;
+    }
+  }
+}
+
 // to get arrow class name
 function addArrowClass(gap) {
   return gap >= 0 ? classIArrowUp : classIArrowDown;
@@ -142,7 +169,7 @@ function checkScreenRotated() {
 }
 
 function checkModalCondition() {
-  return (checkMobileSize() || (checkScreenRotated() && checkScreenSM())) ? true : false;
+  return checkMobileSize() || (checkScreenRotated() && checkScreenSM()) ? true : false;
 }
 
 // Regular trading hours for the U.S. stock market is 9:30 a.m. to 4 p.m
