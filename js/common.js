@@ -30,7 +30,7 @@ const urlGetStockSeriesDataFull =
 const stockApiKey = "&apikey=EGJSU5WH1WOOPPAF";
 
 // class of each element for css styling and bootstrap
-const classDivMedia = "media border rounded align-items-center stock-row";
+const classDivMedia = "media border rounded align-items-center stock-row hvr-grow";
 const classImgLogo = "stock-logo rounded";
 const classDivBody = "media-body";
 const classBtnClose = "close";
@@ -68,8 +68,8 @@ const newsApiKey = "&apiKey=dL7uU3UkxInFbsr2IQmvu3gs-vZQP_2ipkqjo2_je8cq1xX1";
 const urlAllArticlesSearch = "https://api.currentsapi.services/v1/search?language=en&country=us&keywords=";
 const urlLatestNews = "https://api.currentsapi.services/v1/latest-news?language=us&country=us";
 
-const classNewsContainer = "card flex-sm-row box-shadow h-150";
-const classNewsImg = "card-img-left col-3 flex-auto d-none d-sm-block news-image";
+const classNewsContainer = "card flex-sm-row box-shadow h-150 hvr-underline-reveal";
+const classNewsImg = "card-img-left col-3 flex-auto d-sm-block news-image";
 const classNewsContent = "card-body d-sm-flex flex-column align-items-start p-1 pl-2";
 const classNewsCategory = "d-inline-block mb-0 text-success";
 const classNewsTitle = "mb-0 text-dark";
@@ -116,6 +116,11 @@ function checkModal() {
   return $("#stockModal").hasClass("show") ? true : false;
 }
 
+function checkScreenXS() {
+  let screenSize = $(window).width();
+  return screenSize <= 575 ? true : false;
+}
+
 function checkScreenMD() {
   let screenSize = $(window).width();
   return screenSize >= 751 && screenSize < 975 ? true : false;
@@ -146,12 +151,16 @@ function stockMarketHour() {
 $(window).resize(() => {
   // medium(md) ~ large(lg), margin +17 of real screen size
   if (checkScreenMD()) {
-    $(".stock-logo").hide(800); // remove stock logo image
+    $(".stock-logo").hide(600); // remove stock logo image
+    $(".news-image").hide(600); // remove stock logo image
     $(".media-body").addClass("pl-2");
     $(".news-image").removeClass("d-sm-block");
     $(".news-image").addClass("d-lg-block");
+  } else if (checkScreenXS()) {
+    $(".news-image").hide(600); // remove stock logo image
   } else {
-    $(".stock-logo").show(800);
+    $(".stock-logo").show(600);
+    $(".news-image").show(600); // remove stock logo image
     $(".media-body").removeClass("pl-2");
     $(".news-image").addClass("d-sm-block");
     $(".news-image").removeClass("d-lg-block");

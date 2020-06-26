@@ -34,9 +34,11 @@ inputTxt.keydown((event) => {
       company.className = "company";
       company.setAttribute("data-cname", data[i].name);
       companyLogoImg.setAttribute("src", data[i].logo);
-      companyLogoImg.className = "company-logo";
+      companyLogoImg.className = "company-logo align-middle";
       companyName.textContent = data[i].name;
+      companyName.className = "align-middle font-weight-bold";
       companyDomain.textContent = ` (${data[i].domain})`;
+      companyDomain.className = "align-middle";
       company.append(companyLogoImg, companyName, companyDomain);
       companyList.appendChild(company);
 
@@ -70,9 +72,11 @@ function getTickerName(name, logoUrl) {
       const companyName = document.createElement("span");
 
       ticker.textContent = data.bestMatches[i]["1. symbol"];
+      ticker.className = "align-middle font-weight-bold";
       company.setAttribute("data-ticker", ticker.textContent);
-      company.className = "pl-3";
+      company.className = "pl-3 company";
       companyName.textContent = ` (${data.bestMatches[i]["2. name"]}, ${data.bestMatches[i]["9. matchScore"]})`;
+      companyName.className = "align-middle";
 
       company.append(ticker, companyName);
       companyList.appendChild(company);
