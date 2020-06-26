@@ -107,6 +107,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
 // to delete the selected ticker
 function addDeleteButton(element) {
   element.addEventListener("click", (event) => {
+    saveStockList();
     event.target.parentNode.parentNode.style.zIndex = 0;
     event.target.parentNode.parentNode.classList.add("stock-remove");
     setTimeout(() => {
