@@ -118,7 +118,12 @@ function checkModal() {
 
 function checkScreenXS() {
   let screenSize = $(window).width();
-  return screenSize <= 575 ? true : false;
+  return screenSize <= 559 ? true : false;
+}
+
+function checkScreenSM() {
+  let screenSize = $(window).width();
+  return screenSize >= 559 && screenSize < 751 ? true : false;
 }
 
 function checkScreenMD() {
@@ -129,6 +134,15 @@ function checkScreenMD() {
 function checkScreenMoreThanMD() {
   let screenSize = $(window).width();
   return screenSize >= 751 ? true : false;
+}
+
+function checkScreenRotated() {
+  let angle = screen.orientation.angle;
+  return angle === 90 || angle === 270 ? true : false;
+}
+
+function checkModalCondition() {
+  return (checkMobileSize() || (checkScreenRotated() && checkScreenSM())) ? true : false;
 }
 
 // Regular trading hours for the U.S. stock market is 9:30 a.m. to 4 p.m

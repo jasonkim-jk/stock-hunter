@@ -49,7 +49,7 @@ inputTxt.keydown((event) => {
         getTickerName(selectedCompany, logoUrl);
         clearList(companyList);
         inputTxt.val("");
-        if (!checkMobileSize()) getNews(selectedCompany);
+        if (!checkModalCondition()) getNews(selectedCompany);
       });
     }
   }).fail((jqxhr, textStatus, error) => {
@@ -87,7 +87,7 @@ function getTickerName(name, logoUrl) {
         // console.log("Ticker: ", tickerName);
         clearList(companyList);
         getStockQuoteInfo(tickerName, name, logoUrl);
-        if (!checkMobileSize()) drawStockChart(tickerName, name, idChartContainer, idChartGraph);
+        if (!checkModalCondition()) drawStockChart(tickerName, name, idChartContainer, idChartGraph);
         updateQuote();
       });
     }

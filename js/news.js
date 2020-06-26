@@ -10,6 +10,9 @@ function getNews(keyWord, category = "") {
 
   $.getJSON(searchUrl, (data) => {
     addNewsList(data);
+    if (checkScreenXS()) {
+      $(".news-image").hide(600); // remove stock logo image
+    }
   }).fail((jqxhr, textStatus, error) => {
     console.error(textStatus + ", " + error);
   });
@@ -20,7 +23,7 @@ function addNewsList(data) {
   let tempNewsContainer = "";
 
   // to show news data on the modal
-  if (checkMobileSize() && checkModal()) {
+  if ((checkMobileSize() || checkScreenRotated()) && checkModal()) {
     tempNewsContainer = newsContainerModal;
   } else {
     tempNewsContainer = newsContainer;
@@ -74,7 +77,8 @@ function addNewsList(data) {
     newsTime.style.textTransform = "capitalize";
     newsTime.textContent =
       data.news[i].published.slice(0, data.news[i].published.indexOf("+")) +
-      " - By " + data.news[i].author.substr(0, 25);
+      " - By " +
+      data.news[i].author.substr(0, 25);
 
     divContent.append(newsCategory, newsTitle, newsText, newsTime);
     divContainer.append(img, divContent);
