@@ -75,7 +75,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
       addDeleteButton(btnClose);
 
       // a stock card is clicked, open a modal when mobile size or update other information
-      addEventListenerForCart(divStock, ticker, companyName, logoUrl);
+      addEventListenerForCard(divStock, ticker, companyName, logoUrl);
 
       // update stock info. every 1 minute
       makeUpdateTimer(divStock, ticker, companyName);
@@ -119,7 +119,7 @@ function addDeleteButton(element) {
 }
 
 // a stock card is clicked, open a modal when mobile size or update other information
-function addEventListenerForCart(element, ticker, company, url) {
+function addEventListenerForCard(element, ticker, company, url) {
   element.addEventListener("click", (event) => {
     if (event.target.className === classBtnClose) return;
 
