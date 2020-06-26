@@ -13,6 +13,11 @@ $("#stockModal").on("shown.bs.modal", (event) => {
 $("#stockModal").on("hide.bs.modal", (event) => {
   // console.log("the modal is about to close");
   $(".modal-stock-logo").remove();
+  $("#myModalLabel").text("");
+  $("#myModalLabel").attr("data-ticker", "");
+  $("#myModalLabel").attr("data-logoUrl", "");
+  clearList(newsContainerModal);
+  $(`#${idChartContainerModal}`).remove();
 });
 
 function showStockLogo(imgUrl) {

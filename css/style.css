@@ -183,7 +183,7 @@ body {
   transition-property: transform;
 }
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
-  z-index: 3000;
+  z-index: 99;
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
 }

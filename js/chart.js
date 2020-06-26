@@ -32,13 +32,14 @@ function createChartContainer(container) {
   if (checkMobileSize() && checkModal()) {
     tempChartNewsContainer = chartNewsContainerModal;
     tempNewsContainer = newsContainerModal;
+    // the previous chart should be deleted
+    $(`#${container}-modal`).remove();
   } else {
     tempChartNewsContainer = chartNewsContainer;
     tempNewsContainer = newsContainer;
+    // the previous chart should be deleted
+    $(`#${container}`).remove();
   }
-
-  // the previous chart should be deleted
-  $(`#${container}`).remove();
 
   let divContainer = document.createElement("div");
   divContainer.className = classChartContainer;
