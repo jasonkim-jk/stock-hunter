@@ -31,14 +31,14 @@ inputTxt.keydown((event) => {
       const companyName = document.createElement("span");
       const companyDomain = document.createElement("span");
 
-      company.className = "d-flex justify-content-between company";
+      company.className = "d-flex justify-content-between align-items-center company";
       company.setAttribute("data-cname", data[i].name);
       companyLogoImg.src = data[i].logo;
-      companyLogoImg.className = "company-logo align-middle";
+      companyLogoImg.className = "company-logo";
       companyName.textContent = data[i].name;
-      companyName.className = "align-middle font-weight-bold";
+      companyName.className = "font-weight-bold pr-2 autocomplete-height";
       companyDomain.textContent = ` (${data[i].domain})`;
-      companyDomain.className = "ml-auto align-middle pr-2";
+      companyDomain.className = "ml-auto pr-2 autocomplete-height";
       company.append(companyLogoImg, companyName, companyDomain);
       companyList.appendChild(company);
 
@@ -72,11 +72,11 @@ function getTickerName(name, logoUrl) {
       const companyName = document.createElement("span");
 
       ticker.textContent = data.bestMatches[i]["1. symbol"];
-      ticker.className = "align-middle font-weight-bold";
+      ticker.className = "font-weight-bold pr-2 autocomplete-height";
       company.setAttribute("data-ticker", ticker.textContent);
-      company.className = "pl-3 d-flex justify-content-between company";
+      company.className = "pl-3 d-flex justify-content-between align-items-center company";
       companyName.textContent = ` (${data.bestMatches[i]["2. name"]}, ${data.bestMatches[i]["9. matchScore"]})`;
-      companyName.className = "align-middle pr-2";
+      companyName.className = "pr-2 autocomplete-height";
 
       company.append(ticker, companyName);
       companyList.appendChild(company);

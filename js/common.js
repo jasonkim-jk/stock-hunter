@@ -2,6 +2,7 @@
 // Feature set
 const enableUpdateTimer = false;
 const useLocalStorage = true;
+const useTimeSeriesChart = true;
 
 ////////////////////////
 // header container
@@ -15,19 +16,30 @@ const inputTxt = $("#input-company");
 
 ////////////////////////
 // stock container
+// API key
+const stockApiKey = "&apikey=EGJSU5WH1WOOPPAF";
 // to get company's logo and domain information from the input text (https://clearbit.com/docs?ruby#autocomplete-api)
 const urlGetCompanyLogoName = "https://autocomplete.clearbit.com/v1/companies/suggest?query=";
 // to get stock tickers from company names
 const urlGetStockTickerFromName = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=";
 // to get stock information (close/open/high/low price, change, change rate, etc)
 const urlGetStockQuote = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=";
-// to get stock information (stock price data of daily time series)
-const urlGetStockSeriesData = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
-// to get stock information (full stock price data of daily time series for 20years)
-const urlGetStockSeriesDataFull =
+// to get stock information (stock price data of time series)
+const urlGetStockSeriesData1m =
+  "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=1min&outputsize=full&symbol=";
+const urlGetStockSeriesData5m =
+  "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=5min&outputsize=full&symbol=";
+const urlGetStockSeriesData15m =
+  "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=15min&outputsize=full&symbol=";
+const urlGetStockSeriesData30m =
+  "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=30min&outputsize=full&symbol=";
+const urlGetStockSeriesData60m =
+  "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&interval=60min&outputsize=full&symbol=";
+const urlGetStockSeriesData1D = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
+const urlGetStockSeriesData1DFull =
   "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=";
-// API key
-const stockApiKey = "&apikey=EGJSU5WH1WOOPPAF";
+const urlGetStockSeriesData1w = "https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=";
+const urlGetStockSeriesData1mon = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=";
 
 // class of each element for css styling and bootstrap
 const classDivMedia = "media border rounded align-items-center stock-row hvr-grow";
@@ -61,6 +73,18 @@ const idChartContainer = "chart-container";
 const idChartContainerModal = "chart-container-modal";
 const idChartGraph = "chart-stock";
 
+const classStockButtonContainer = "stock-button-container pl-1";
+const classStockTimeSeries = "stock-time btn btn-info btn-sm m-1";
+const classStockInterval1m = "interval-1m";
+const classStockInterval5m = "interval-5m";
+const classStockInterval15m = "interval-15m";
+const classStockInterval30m = "interval-30m";
+const classStockInterval60m = "interval-60m";
+const classStockInterval1D = "interval-1d";
+const classStockInterval1DF = "interval-1d-full";
+const classStockInterval1W = "interval-1w";
+const classStockInterval1Mon = "interval-1mon";
+
 ////////////////////////
 // news container
 // to get news data related with the selected ticker (https://https://currentsapi.services/)
@@ -81,6 +105,7 @@ const newsContainer = document.querySelector(".news-container");
 const chartNewsContainerModal = document.querySelector(".chart-news-container-modal");
 const newsContainerModal = document.querySelector(".news-container-modal");
 const noImage = "img/noimage.png";
+const noLogoImage = "img/logo_notfound.png";
 
 ////////////////////////
 // clear previous results
@@ -112,7 +137,7 @@ function windowErrorCb(event) {
     let isImgErrorHandled = target.hasAttribute("data-src-error");
     if (!isImgErrorHandled) {
       target.setAttribute("data-src-error", "handled");
-      target.src = noImage;
+      target.src = noLogoImage;
     }
   }
 }
@@ -135,41 +160,41 @@ function addComma(numString) {
 
 // to check the current browser size
 function checkMobileSize() {
-  return $(window).width() < 500 ? true : false;
+  return $(window).width() < 500;
 }
 
 // to check the modal is poped up or not
 function checkModal() {
-  return $("#stockModal").hasClass("show") ? true : false;
+  return $("#stockModal").hasClass("show");
 }
 
 function checkScreenXS() {
   let screenSize = $(window).width();
-  return screenSize <= 559 ? true : false;
+  return screenSize <= 559;
 }
 
 function checkScreenSM() {
   let screenSize = $(window).width();
-  return screenSize >= 559 && screenSize < 751 ? true : false;
+  return screenSize >= 559 && screenSize < 751;
 }
 
 function checkScreenMD() {
   let screenSize = $(window).width();
-  return screenSize >= 751 && screenSize < 975 ? true : false;
+  return screenSize >= 751 && screenSize < 975;
 }
 
 function checkScreenMoreThanMD() {
   let screenSize = $(window).width();
-  return screenSize >= 751 ? true : false;
+  return screenSize >= 751;
 }
 
 function checkScreenRotated() {
   let angle = screen.orientation.angle;
-  return angle === 90 || angle === 270 ? true : false;
+  return angle === 90 || angle === 270;
 }
 
 function checkModalCondition() {
-  return checkMobileSize() || (checkScreenRotated() && checkScreenSM()) ? true : false;
+  return checkMobileSize() || (checkScreenRotated() && checkScreenSM());
 }
 
 // Regular trading hours for the U.S. stock market is 9:30 a.m. to 4 p.m

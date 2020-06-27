@@ -48,6 +48,10 @@ body {
   border-bottom: 1px solid #d4d4d4;
 }
 
+.header-container .autocomplete-height {
+  max-height: 1.5rem;
+}
+
 .header-container .company:hover {
   cursor: pointer;
   background-color: rgb(245, 245, 245);
@@ -159,6 +163,10 @@ body {
   min-height: 400px;
   margin: 0.5rem 0;
   padding: 0 0.2rem;
+}
+
+.chart-container .stock-time {
+  width: 3rem;
 }
 
 /******************* news container *******************/
