@@ -62,7 +62,7 @@ function createChartContainer(container) {
 
 // draw stock chart using Highcharts API
 function drawStockChart(ticker, companyName, container, id) {
-  Highcharts.getJSON(urlGetStockSeriesData1D + ticker + stockApiKey, (data) => {
+  Highcharts.getJSON(urlGetStockSeriesData1DFull + ticker + stockApiKey, (data) => {
     // error check
     let chartData = getChartData(data);
     if (!chartData) return;

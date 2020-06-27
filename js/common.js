@@ -268,3 +268,15 @@ function loadStockList() {
     return null;
   }
 }
+
+// to remove autocomplete when clicked the X button
+$("#input-company").on("click", function () {
+  $("#input-company").on("search", function () {
+    if (!this.value) {
+      clearList(companyList);
+    }
+  });
+  setTimeout(function () {
+    $("#input-company").off("search");
+  }, 1);
+});
