@@ -27,6 +27,11 @@ body {
   margin: auto;
 }
 
+.header-container #input-company::-webkit-search-cancel-button {
+  position: relative;
+  right: 20px;
+}
+
 .header-container .company-logo {
   width: 1.4rem;
   margin: 0.2rem 0.8rem;
