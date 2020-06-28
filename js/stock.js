@@ -2,12 +2,9 @@
 function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
   $.getJSON(urlGetStockQuote + ticker + stockApiKey, (data) => {
     // console.dir(data);
-    const changePercent = data["Global Quote"]["10. change percent"];
-    if (!changePercent) {
-      alert("[Error] Stock data error from server");
-      return;
-    }
+    if (queryDataError(data)) return;
 
+    const changePercent = data["Global Quote"]["10. change percent"];
     const gapValue = parseFloat(changePercent);
 
     if (create) {
