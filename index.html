@@ -38,7 +38,13 @@
         </div>
         <div class="col-sm-9 input-group input-group-lg mt-2 align-self-center">
           <!-- Ticker Search -->
-          <input type="search" class="form-control" id="input-company" placeholder="Company Name" pattern="^[A-Za-z]+$" />
+          <input
+            type="search"
+            class="form-control"
+            id="input-company"
+            placeholder="Company Name"
+            pattern="^[A-Za-z]+$"
+          />
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" id="btn-search" type="button">Search</button>
           </div>
@@ -68,6 +74,26 @@
         <!-- Stock cards container -->
         <div class="col-md-5 container">
           <div class="row flex-column stock-container"></div>
+          <div class="row border stock-sector-container d-none">
+            <div class="table-responsive">
+              <table class="table table-hover table-sm">
+                <caption class="stock-sector-caption text-right pr-2 pb-0"></caption>
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Stock Sector</th>
+                    <th scope="col">Current</th>
+                    <th scope="col">1Day</th>
+                    <th scope="col">5Day</th>
+                    <th scope="col">1Mon</th>
+                    <th scope="col">3Mon</th>
+                    <th scope="col">1Year</th>
+                  </tr>
+                </thead>
+                <tbody class="stock-sector-body">
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
         <!-- Stock chart and news container -->
         <div class="col-md-7 container">
@@ -89,6 +115,7 @@
     <script src="js/chart.js"></script>
     <script src="js/quotes.js"></script>
     <script src="js/news.js"></script>
+    <script src="js/sector.js"></script>
     <script src="js/stock.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/main.js"></script>

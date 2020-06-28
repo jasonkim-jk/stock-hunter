@@ -154,12 +154,23 @@ body {
   margin: 0.2rem;
 }
 
+.stock-sector-container .stock-green,
 .stock-container .stock-green {
   color: rgb(0, 200, 5);
 }
 
+.stock-sector-container .stock-red,
 .stock-container .stock-red {
   color: rgb(255, 80, 0);
+}
+
+/******************* stock-sector container *******************/
+.stock-sector-container {
+  font-size: 0.8rem;
+}
+
+.stock-sector-container thead th:nth-child(n + 2) {
+  text-align: right;
 }
 
 /******************* chart container *******************/

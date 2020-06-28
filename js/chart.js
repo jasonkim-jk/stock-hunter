@@ -1,16 +1,10 @@
 // get date and price info from server's data and convert them for chart data
 function getChartData(data) {
-  // workaround for the free open-api problem
-  // frequent queries can cause empty data problem
-  // "Note" property means error!
-  if (data.hasOwnProperty("Note")) {
-    alert("[Error] Wrong chart data from server");
-    return false;
-  }
+  if (queryDataError(data)) return false;
 
   // chart data form: [[timestamp, value], [timestamp, value], ...]
-  let stockChartData = [];
-  let keyData = Object.keys(data["Time Series (Daily)"]);
+  const stockChartData = [];
+  const keyData = Object.keys(data["Time Series (Daily)"]);
 
   // chart data must be sorted by ascending order.
   // server's data are decending, so revert them.

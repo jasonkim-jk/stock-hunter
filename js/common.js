@@ -69,13 +69,33 @@ const defaultStockList = [
   {
     ticker: "QQQ",
     companyName: "Invesco QQQ Trust",
-    logoUrl: "img/invesco_qqq.jpg",
+    logoUrl: "img/invesco_qqq.png",
   },
   {
     ticker: "DIA",
     companyName: "SPDR Dow Jones Industrial Average ETF",
     logoUrl: "img/spdr_dia.png",
   },
+];
+
+////////////////////////
+// stock-sector container
+// API key
+const urlGetStockSector = "https://www.alphavantage.co/query?function=SECTOR";
+const stockSectorContainer = document.querySelector(".stock-sector-container");
+const stockSectorBody = document.querySelector(".stock-sector-body");
+const stockSector = [
+  "Communication Services",
+  "Consumer Discretionary",
+  "Consumer Staples",
+  "Energy",
+  "Financials",
+  "Health Care",
+  "Industrials",
+  "Information Technology",
+  "Materials",
+  "Real Estate",
+  "Utilities",
 ];
 
 ////////////////////////
@@ -278,6 +298,17 @@ function loadStockList() {
   } else {
     console.log("localStorage loading skipped");
     return null;
+  }
+}
+
+// to check stock query API condition
+function queryDataError(data) {
+  // workaround for the free open-api problem
+  // frequent queries can cause empty data problem
+  // "Note" property means error!
+  if (data.hasOwnProperty("Note")) {
+    alert("[Error] Wrong JSON data from the API server");
+    return true;
   }
 }
 
