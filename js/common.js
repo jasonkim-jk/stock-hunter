@@ -1,7 +1,7 @@
 ////////////////////////
 // Feature set
 const enableUpdateTimer = false;
-const useLocalStorage = true;
+const useLocalStorage = false;
 const useTimeSeriesChart = true;
 
 ////////////////////////
@@ -42,7 +42,7 @@ const urlGetStockSeriesData1w = "https://www.alphavantage.co/query?function=TIME
 const urlGetStockSeriesData1mon = "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=";
 
 // class of each element for css styling and bootstrap
-const classDivMedia = "media border rounded align-items-center stock-row hvr-grow";
+const classDivMedia = "media border rounded align-items-center stock-row hvr-grow hvr-underline-reveal";
 const classImgLogo = "stock-logo rounded";
 const classDivBody = "media-body";
 const classBtnClose = "close";
@@ -61,9 +61,21 @@ const classIArrowDown = "fa-long-arrow-alt-down";
 
 const stockContainer = document.querySelector(".stock-container");
 const defaultStockList = [
-  { ticker: "AMZN", companyName: "Amazon", logoUrl: "https://logo.clearbit.com/amazon.com" },
-  { ticker: "TSLA", companyName: "Tesla", logoUrl: "https://logo.clearbit.com/tesla.com" },
-  // { ticker: "GOOGL", companyName: "Alphabet", logoUrl: "https://logo.clearbit.com/abc.xyz" },
+  {
+    ticker: "SPY",
+    companyName: "SPDR S&P 500 ETF Trust",
+    logoUrl: "img/spdr_spy.png",
+  },
+  {
+    ticker: "QQQ",
+    companyName: "Invesco QQQ Trust",
+    logoUrl: "img/invesco_qqq.jpg",
+  },
+  {
+    ticker: "DIA",
+    companyName: "SPDR Dow Jones Industrial Average ETF",
+    logoUrl: "img/spdr_dia.png",
+  },
 ];
 
 ////////////////////////
@@ -92,7 +104,7 @@ const newsApiKey = "&apiKey=dL7uU3UkxInFbsr2IQmvu3gs-vZQP_2ipkqjo2_je8cq1xX1";
 const urlAllArticlesSearch = "https://api.currentsapi.services/v1/search?language=en&country=us&keywords=";
 const urlLatestNews = "https://api.currentsapi.services/v1/latest-news?language=us&country=us";
 
-const classNewsContainer = "card flex-sm-row box-shadow h-150 hvr-underline-reveal";
+const classNewsContainer = "card flex-sm-row box-shadow h-150 hvr-grow hvr-underline-reveal";
 const classNewsImg = "card-img-left col-3 flex-auto d-sm-block news-image";
 const classNewsContent = "card-body d-sm-flex flex-column align-items-start p-1 pl-2";
 const classNewsCategory = "d-inline-block mb-0 text-success";
@@ -264,12 +276,13 @@ function loadStockList() {
     console.log("Saved stock cards information loaded~!");
     return JSON.parse(localStorage.getItem("stocks"));
   } else {
-    console.log("localStorage loading failed");
+    console.log("localStorage loading skipped");
     return null;
   }
 }
 
 // to remove autocomplete when clicked the X button
+$("#input-company").trigger("focus");
 $("#input-company").on("click", function () {
   $("#input-company").on("search", function () {
     if (!this.value) {
