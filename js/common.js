@@ -97,6 +97,17 @@ const stockSector = [
   "Real Estate",
   "Utilities",
 ];
+const stockTableIndex = [
+  { sector: document.querySelector("#table-title"), type: "alpha" },
+  { sector: document.querySelector("#table-current"), type: "numeric" },
+  { sector: document.querySelector("#table-1day"), type: "numeric" },
+  { sector: document.querySelector("#table-5day"), type: "numeric" },
+  { sector: document.querySelector("#table-1mon"), type: "numeric" },
+  { sector: document.querySelector("#table-3mon"), type: "numeric" },
+  { sector: document.querySelector("#table-1year"), type: "numeric" },
+];
+let stockSectorData = [];
+
 
 ////////////////////////
 // chart container
@@ -310,6 +321,11 @@ function queryDataError(data) {
     alert("[Error] Wrong JSON data from the API server");
     return true;
   }
+}
+
+// to get a float number from a string including "%"
+function getFloat(input) {
+  return parseFloat(input.split("%"));
 }
 
 // to remove autocomplete when clicked the X button

@@ -173,6 +173,23 @@ body {
   text-align: right;
 }
 
+.stock-sector-container .sort-no {
+  color: rgb(160, 160, 160);
+}
+
+.stock-sector-container thead th {
+/* .stock-sector-container .sort-no:hover { */
+  cursor: pointer;
+}
+
+.stock-sector-container .sort-down {
+  color: lightskyblue;
+}
+
+.stock-sector-container .sort-up {
+  color: lightcoral;
+}
+
 /******************* chart container *******************/
 .chart-container {
   width: 100vw;
