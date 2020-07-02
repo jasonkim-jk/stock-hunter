@@ -106,8 +106,7 @@ const stockTableIndex = [
   { sector: document.querySelector("#table-3mon"), type: "numeric" },
   { sector: document.querySelector("#table-1year"), type: "numeric" },
 ];
-let stockSectorData = [];
-
+const stockSectorData = [];
 
 ////////////////////////
 // chart container
@@ -149,6 +148,10 @@ const chartNewsContainerModal = document.querySelector(".chart-news-container-mo
 const newsContainerModal = document.querySelector(".news-container-modal");
 const noImage = "img/noimage.png";
 const noLogoImage = "img/logo_notfound.png";
+
+////////////////////////
+// youtube container
+const youtubeContainer = document.querySelector("#div-youtube");
 
 ////////////////////////
 // clear previous results
@@ -340,3 +343,8 @@ $("#input-company").on("click", function () {
     $("#input-company").off("search");
   }, 1);
 });
+
+// to check mobile or not
+function isMobile() {
+  return "ontouchstart" in document.documentElement;
+}
