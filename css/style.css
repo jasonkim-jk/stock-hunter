@@ -322,6 +322,14 @@ a:active {
   color: #007bff;
 }
 
+.youtube-container .youtube-title p:after {
+  content: "Youtube - CNN News";
+}
+
+.youtube-container .youtube-title p:hover:after {
+  content: "Click here to move";
+}
+
 .youtube-container #youtube-origin {
   cursor: pointer;
   float: left;
