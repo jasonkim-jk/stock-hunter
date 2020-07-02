@@ -178,7 +178,7 @@ body {
 }
 
 .stock-sector-container thead th {
-/* .stock-sector-container .sort-no:hover { */
+  /* .stock-sector-container .sort-no:hover { */
   cursor: pointer;
 }
 
@@ -291,6 +291,56 @@ a:active {
 
 .modal-content .modal-stock-logo {
   width: 2rem;
+}
+
+/******************* draggable container *******************/
+.youtube-container {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 5000;
+  text-align: center;
+  background-color: #f1f1f1;
+  border: 1px solid #d4d4d4;
+  width: 300px;
+  height: 190px;
+  border-radius: 5px;
+}
+
+.youtube-container .youtube-title {
+  padding: 0.5rem;
+  cursor: move;
+  z-index: 5001;
+  background-color: #c5d2dd;
+}
+
+.youtube-container .youtube-title p {
+  display: inline-block;
+}
+
+.youtube-container .youtube-title p:hover {
+  color: #007bff;
+}
+
+.youtube-container #youtube-origin {
+  cursor: pointer;
+  float: left;
+}
+
+.youtube-container #youtube-size:hover,
+.youtube-container #youtube-origin:hover {
+  color: coral;
+}
+
+.youtube-container #youtube-size {
+  cursor: pointer;
+  float: right;
+}
+
+.youtube-container iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 5px 5px;
 }
 
 /******************* media query *******************/
