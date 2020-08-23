@@ -7,8 +7,8 @@ function updateQuote() {
     quote.textContent = data.content;
     author.textContent = "— " + data.author;
     removeAnimatedChildElement(quote, author);
-    addAnimationEffect(quote, 3);
-    addAnimationEffect(author, 3);
+    addAnimationEffect(quote, 1);
+    addAnimationEffect(author, 1);
   }).fail((jqxhr, textStatus, error) => {
     console.error(textStatus + ", " + error);
   });

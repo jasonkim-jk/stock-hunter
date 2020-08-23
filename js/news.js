@@ -59,7 +59,7 @@ function addNewsList(data, keyWord) {
     newsCategory.className = "d-block text-success";
     newsCategory.textContent = data.news[i].category[0];
 
-    const newsTime = document.createElement("span");
+    const newsTime = document.createElement("small");
     newsTime.className = "d-block text-muted text-truncate";
     newsTime.style.textTransform = "capitalize";
     newsTime.textContent =
@@ -69,11 +69,11 @@ function addNewsList(data, keyWord) {
       data.news[i].published.slice(0, data.news[i].published.indexOf("+"));
 
     const newsTitle = document.createElement("p");
-    newsTitle.className = "mb-0 text-text d-block text-truncate";
+    newsTitle.className = "mb-0 text-info d-block text-truncate";
     newsTitle.textContent = data.news[i].title;
 
     const newsText = document.createElement("p");
-    newsText.className = "mb-auto text-dark d-block text-truncate";
+    newsText.className = "mb-auto text-muted d-block text-truncate";
     newsText.textContent = data.news[i].description;
 
     divContent.append(newsCategory, newsTime, newsTitle, newsText);

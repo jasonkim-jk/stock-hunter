@@ -91,17 +91,17 @@ function queryDataError(data) {
 }
 
 $("#input-company").trigger("focus");
-$("#input-company").on("click", function () {
-  $("#input-company").on("search", function () {
-    if (!this.value) {
-      clearList(document.querySelector(".company-data"));
-    }
-  });
-  setTimeout(function () {
-    $("#input-company").off("search");
-  }, 1);
+$("#input-company").on("click", () => {
+  const obj = document.querySelector(".company-data");
+  if (!this.value || obj) {
+    clearList(obj);
+  }
 });
 
 function isMobile() {
   return "ontouchstart" in document.documentElement;
 }
+
+$("#tickerToast").on("hidden.bs.toast", () => {
+  $("#tickerToast").hide();
+});

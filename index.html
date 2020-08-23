@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stock Hunter - Stock Quotes & Prices | Chart | News | CNN News Channel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="img/favicon.png" sizes="32x32" type="image/png" />
   </head>
@@ -13,10 +13,10 @@
     <!-- Front page contents -->
     <div class="container header-container">
       <div class="row">
-        <div class="col-sm-3 mt-2 mr-0">
+        <div class="col-sm-3 col-xl-2 mt-2 mr-0 pr-md-0">
           <img src="img/logo_transparent.png" alt="stock hunter logo" id="img-logo" />
         </div>
-        <div class="col-sm-9 input-group input-group-lg mt-2 align-self-center">
+        <div class="col-sm-9 col-xl-10 pl-sm-0 input-group mt-2 align-self-center">
           <input
             type="search"
             class="form-control"
@@ -30,16 +30,16 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-9">
+        <div class="col-sm-3 col-xl-2"></div>
+        <div class="col-sm-9 col-xl-10 pl-sm-0">
           <!-- Company name and ticker autocomplete suggestion -->
           <div class="company-data"></div>
         </div>
       </div>
-      <div class="row card-footer mt-2">
+      <div class="row card-footer border-top-0 border-bottom mt-2 py-1 px-3 py-md-2">
         <div class="col">
           <!-- Random quote -->
-          <blockquote class="blockquote text-center">
+          <blockquote class="blockquote text-center m-0">
             <p class="mb-1">A wise person should have money in their head, but not in their heart.</p>
             <footer class="blockquote-foot mb-0">— Jonathan Swift</footer>
           </blockquote>
@@ -54,32 +54,32 @@
           <div class="row flex-column stock-container"></div>
           <div class="row flex-column border-0 stock-sector-container d-none">
             <h4 class="text-dark mb-2 mb-sm-3 text-center">Stock Sector Performance</h4>
-            <hr class="my-0">
+            <hr class="my-0" />
             <div class="table-responsive mt-2 mt-sm-3">
               <table class="table table-hover table-sm">
                 <caption class="stock-sector-caption text-left px-1 py-0"></caption>
                 <thead class="thead-light mx-auto">
                   <tr id="table-th-row">
-                    <th scope="col" class="text-nowrap" id="sector-title">
+                    <th scope="col" class="text-nowrap font-weight-normal" id="sector-title">
                       <i class="fas fa-sync-alt pl-2 pr-2" id="table-reload"></i> Stock Sector
                       <i class="fas fa-sort-alpha-down sort-no" id="table-title"></i>
                     </th>
-                    <th scope="col" class="text-nowrap" id="sector-current">
+                    <th scope="col" class="text-nowrap font-weight-normal" id="sector-current">
                       Now <i class="fas fa-sort-numeric-down sort-no" id="table-current"></i>
                     </th>
-                    <th scope="col" class="text-nowrap" id="sector-1day">
+                    <th scope="col" class="text-nowrap font-weight-normal" id="sector-1day">
                       1Day <i class="fas fa-sort-numeric-down sort-no" id="table-1day"></i>
                     </th>
-                    <th scope="col" class="text-nowrap" id="sector-5day">
+                    <th scope="col" class="text-nowrap font-weight-normal" id="sector-5day">
                       5Day <i class="fas fa-sort-numeric-down sort-no" id="table-5day"></i>
                     </th>
-                    <th scope="col" class="text-nowrap" id="sector-1mon">
+                    <th scope="col" class="text-nowrap font-weight-normal" id="sector-1mon">
                       1M <i class="fas fa-sort-numeric-down sort-no" id="table-1mon"></i>
                     </th>
-                    <th scope="col" class="text-nowrap" id="sector-3mon">
+                    <th scope="col" class="text-nowrap font-weight-normal" id="sector-3mon">
                       3M <i class="fas fa-sort-numeric-down sort-no" id="table-3mon"></i>
                     </th>
-                    <th scope="col" class="text-nowrap" id="sector-1year">
+                    <th scope="col" class="text-nowrap font-weight-normal" id="sector-1year">
                       1Y <i class="fas fa-sort-numeric-down sort-no" id="table-1year"></i>
                     </th>
                   </tr>
@@ -90,7 +90,7 @@
           </div>
         </div>
         <!-- Stock chart and news container -->
-        <div class="col-md-7 container">
+        <div class="col-md-7 container mb-3">
           <div class="row flex-column ml-md-2 chart-news-container">
             <div class="col news-container pl-0 pr-0" id="news-container"></div>
           </div>
@@ -113,6 +113,25 @@
         </div>
       </div>
     </div>
+    <!-- Toast contents -->
+    <div
+      class="toast"
+      id="tickerToast"
+      role="alert"
+      data-delay="5000"
+      style="position: absolute; top: 1rem; right: 1rem; z-index: 10; min-width: 20rem; display: none;"
+    >
+      <div class="toast-header bg-warning text-dark">
+        <strong class="mr-auto">Notice</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        The stock ticker for the selected company could not be found.
+      </div>
+    </div>
+
     <!-- Youtube container -->
     <div class="youtube-container" id="div-youtube">
       <div class="youtube-title" id="div-youtube-header">
@@ -133,7 +152,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/data.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/common.js"></script>
     <script src="js/chart.js"></script>

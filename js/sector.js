@@ -134,6 +134,7 @@ function updateTable(data) {
     const th = document.createElement("th");
     th.scope = "row";
     th.textContent = stockSectorData[i].sector;
+    th.className = "font-weight-normal";
     tr.appendChild(th);
 
     for (let j = 1; j < keyData.length; j++) {
@@ -181,6 +182,7 @@ function getStockSector(type) {
       const th = document.createElement("th");
       th.scope = "row";
       th.textContent = stockSector[i];
+      th.className = "font-weight-normal";
       tempArray["sector"] = stockSector[i];
       tr.appendChild(th);
 
