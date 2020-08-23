@@ -71,15 +71,16 @@ body {
 
 .header-container .blockquote {
   margin-bottom: 0.2rem;
+  line-height: 1.2;
 }
 
 .header-container .blockquote p {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .header-container .blockquote-foot {
   display: block;
-  font-size: 80%;
+  font-size: 0.9rem;
   color: #6c757d;
 }
 
@@ -101,7 +102,6 @@ body {
 
 .stock-container .stock-row {
   border-color: #eaeaea;
-  min-height: 5.5rem;
   cursor: pointer;
   animation-duration: 1s;
   animation-name: slidein;
@@ -113,40 +113,13 @@ body {
 }
 
 .stock-container .stock-logo {
-  width: 4rem;
-  height: auto;
-  margin: auto 0.5rem auto 1.5rem;
-}
-
-.stock-container .media-body {
-  margin: 0.5rem;
+  width: 3rem;
 }
 
 .modal-content .close,
 .stock-container .close,
 .chart-container .close {
   color: coral;
-}
-
-.stock-container .stock-name {
-  font-size: 1.5rem;
-}
-
-.stock-container .stock-symbol {
-  margin-left: 0.5rem;
-}
-
-.stock-container .stock-price {
-  font-size: 1.3rem;
-  margin: 0 0.5rem 0 0;
-  font-weight: 500;
-}
-
-.stock-container .stock-arrow,
-.stock-container .stock-change,
-.stock-container .stock-percent {
-  font-size: 1.2rem;
-  margin: 0.2rem;
 }
 
 .stock-sector-container .stock-green,
@@ -187,7 +160,7 @@ body {
 /******************* chart container *******************/
 .chart-container {
   width: 100vw;
-  min-height: 400px;
+  min-height: 450px;
   margin: 0.5rem 0;
   padding: 0 0.2rem;
 }
@@ -201,6 +174,16 @@ body {
 .news-container .news-image {
   width: 12rem;
   margin: auto;
+}
+
+.news-container-modal .text-truncate,
+.news-container .text-truncate {
+  max-width: 100%;
+}
+
+.stock-sector-container hr,
+.news-container hr {
+  border-top: 3px solid rgba(0, 0, 0, 0.1);
 }
 
 .news-container-modal strong,
@@ -349,9 +332,18 @@ a:active {
   }
 }
 
-@media screen and (max-width: 767px) and (min-width: 576px) {
+@media screen and (min-width: 576px) and (max-width: 767px) {
   .header-container #img-logo {
     max-height: 2.5rem;
+  }
+  .news-container .w-100 {
+    width: 75% !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .news-container .w-100 {
+    width: 75% !important;
   }
 }
 

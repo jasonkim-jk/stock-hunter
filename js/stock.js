@@ -4,21 +4,21 @@ const useLocalStorage = false;
 const urlGetStockQuote = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=";
 const stockContainer = document.querySelector(".stock-container");
 const defaultStockList = [
-  {
-    ticker: "SPY",
-    companyName: "SPDR S&P 500 ETF Trust",
-    logoUrl: "img/spdr_spy.png",
-  },
-  {
-    ticker: "QQQ",
-    companyName: "Invesco QQQ Trust",
-    logoUrl: "img/invesco_qqq.png",
-  },
-  {
-    ticker: "DIA",
-    companyName: "SPDR Dow Jones Industrial Average ETF",
-    logoUrl: "img/spdr_dia.png",
-  },
+  // {
+  //   ticker: "SPY",
+  //   companyName: "SPDR S&P 500 ETF Trust",
+  //   logoUrl: "img/spdr_spy.png",
+  // },
+  // {
+  //   ticker: "QQQ",
+  //   companyName: "Invesco QQQ Trust",
+  //   logoUrl: "img/invesco_qqq.png",
+  // },
+  // {
+  //   ticker: "DIA",
+  //   companyName: "SPDR Dow Jones Industrial Average ETF",
+  //   logoUrl: "img/spdr_dia.png",
+  // },
 ];
 
 function addComma(numString) {
@@ -51,45 +51,45 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
 
       const imgLogo = document.createElement("img");
       imgLogo.src = logoUrl == null ? "img/noimage.png" : logoUrl;
-      imgLogo.className = "stock-logo rounded";
-      imgLogo.id = "logoImg" + companyName;
-      imgLogo.alt = "Logo image of " + companyName;
+      imgLogo.className = "stock-logo rounded mx-2 mx-sm-3";
+      imgLogo.id = "logoImg " + companyName;
+      imgLogo.alt = companyName;
 
       const divBody = document.createElement("div");
       divBody.className = "media-body";
       divStock.append(imgLogo, divBody);
 
       const btnClose = document.createElement("button");
-      btnClose.className = "close";
+      btnClose.className = "close mr-2";
       btnClose.textContent = "×";
 
-      const h2Name = document.createElement("h2");
-      h2Name.className = "stock-name";
-      h2Name.textContent = companyName;
+      const stockName = document.createElement("h6");
+      stockName.className = "stock-name mb-1";
+      stockName.textContent = companyName;
 
       const iSymbol = document.createElement("i");
-      iSymbol.className = "stock-symbol";
+      iSymbol.className = "stock-symbol ml-2";
       iSymbol.textContent = `(${data["Global Quote"]["01. symbol"]})`;
-      h2Name.appendChild(iSymbol);
+      stockName.appendChild(iSymbol);
 
       const divStockText = document.createElement("div");
       divStockText.className = "text-nowrap";
-      divBody.append(btnClose, h2Name, divStockText);
+      divBody.append(btnClose, stockName, divStockText);
 
       const spanPrice = document.createElement("span");
-      spanPrice.className = "stock-price";
+      spanPrice.className = "stock-price mr-2 font-weight-bold";
       spanPrice.textContent = "$" + addComma(data["Global Quote"]["05. price"]);
 
       const iArrow = document.createElement("i");
-      iArrow.className = "fas stock-arrow";
+      iArrow.className = "fas stock-arrow m-1";
       iArrow.classList.add(addArrowClass(gapValue), addColorClass(gapValue));
 
       const spanChange = document.createElement("span");
-      spanChange.classList.add("stock-change", addColorClass(gapValue));
+      spanChange.classList.add("stock-change", "m-1", addColorClass(gapValue));
       spanChange.textContent = "$" + addComma(data["Global Quote"]["09. change"]);
 
       const spanPercent = document.createElement("span");
-      spanPercent.classList.add("stock-percent", addColorClass(gapValue));
+      spanPercent.classList.add("stock-percent", "m-1", addColorClass(gapValue));
       spanPercent.textContent = addComma(data["Global Quote"]["10. change percent"]) + "%";
       divStockText.append(spanPrice, iArrow, spanChange, spanPercent);
 

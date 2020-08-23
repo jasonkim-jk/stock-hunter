@@ -25,7 +25,7 @@ $("#input-company").keydown((event) => {
   $.getJSON(urlGetCompanyLogoName + inputCompanyName, (data) => {
     clearList(companyList);
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length && i < 3; i++) {
       const company = document.createElement("div");
       const companyLogoImg = document.createElement("img");
       const companyName = document.createElement("span");
@@ -48,7 +48,6 @@ $("#input-company").keydown((event) => {
         getTickerName(selectedCompany, logoUrl);
         clearList(companyList);
         $("#input-company").val("");
-        if (!checkModalCondition()) getNews(selectedCompany);
       });
     }
   }).fail((jqxhr, textStatus, error) => {
@@ -57,13 +56,13 @@ $("#input-company").keydown((event) => {
 });
 
 function getTickerName(name, logoUrl) {
-  if (!name) {
-    alert("[Error] Company name data error~!");
-    return;
-  }
-
   $.getJSON(urlGetStockTickerFromName + name + stockApiKey, (data) => {
-    for (let i = 0; i < data.bestMatches.length && i < 5; i++) {
+    if (!data.bestMatches.length) {
+      $("#tickerToast").show();
+      $("#tickerToast").toast("show");
+    }
+
+    for (let i = 0; i < data.bestMatches.length && i < 3; i++) {
       const company = document.createElement("div");
       const ticker = document.createElement("span");
       const companyName = document.createElement("span");
@@ -72,7 +71,7 @@ function getTickerName(name, logoUrl) {
       ticker.className = "font-weight-bold pr-2 autocomplete-height";
       company.setAttribute("data-ticker", ticker.textContent);
       company.className = "pl-3 d-flex justify-content-between align-items-center company";
-      companyName.textContent = ` (${data.bestMatches[i]["2. name"]}, ${data.bestMatches[i]["9. matchScore"]})`;
+      companyName.textContent = ` ${data.bestMatches[i]["2. name"]} (Best matches - ${data.bestMatches[i]["9. matchScore"]})`;
       companyName.className = "pr-2 autocomplete-height";
 
       company.append(ticker, companyName);
@@ -82,7 +81,10 @@ function getTickerName(name, logoUrl) {
         const tickerName = event.currentTarget.getAttribute("data-ticker");
         clearList(companyList);
         getStockQuoteInfo(tickerName, name, logoUrl);
-        if (!checkModalCondition()) drawStockChart(tickerName, name, "chart-container-modal", "chart-stock");
+        if (!checkModalCondition()) {
+          getNews(name);
+          drawStockChart(tickerName, name, "chart-container-modal", "chart-stock");
+        }
         updateQuote();
       });
     }
