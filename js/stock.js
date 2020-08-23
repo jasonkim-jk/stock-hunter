@@ -1,7 +1,41 @@
-// after getting stock info from API server, make a stock card and show them on the card
+const enableUpdateTimer = false;
+const useLocalStorage = false;
+
+const urlGetStockQuote = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=";
+const stockContainer = document.querySelector(".stock-container");
+const defaultStockList = [
+  {
+    ticker: "SPY",
+    companyName: "SPDR S&P 500 ETF Trust",
+    logoUrl: "img/spdr_spy.png",
+  },
+  {
+    ticker: "QQQ",
+    companyName: "Invesco QQQ Trust",
+    logoUrl: "img/invesco_qqq.png",
+  },
+  {
+    ticker: "DIA",
+    companyName: "SPDR Dow Jones Industrial Average ETF",
+    logoUrl: "img/spdr_dia.png",
+  },
+];
+
+function addComma(numString) {
+  let num = parseFloat(numString);
+  return Math.abs(num).toLocaleString("en-US");
+}
+
+function addArrowClass(gap) {
+  return gap >= 0 ? "fa-long-arrow-alt-up" : "fa-long-arrow-alt-down";
+}
+
+function addColorClass(gap) {
+  return gap >= 0 ? "stock-green" : "stock-red";
+}
+
 function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
   $.getJSON(urlGetStockQuote + ticker + stockApiKey, (data) => {
-    // console.dir(data);
     if (queryDataError(data)) return;
 
     const changePercent = data["Global Quote"]["10. change percent"];
@@ -9,58 +43,53 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
 
     if (create) {
       const divStock = document.createElement("div");
-      divStock.className = classDivMedia;
+      divStock.className = "media border rounded align-items-center stock-row hvr-grow hvr-underline-reveal";
       divStock.setAttribute("data-name", companyName);
       divStock.setAttribute("data-ticker", ticker);
       divStock.setAttribute("data-url", logoUrl);
-      // stockContainer.appendChild(divStock);  // add as the last child
-      stockContainer.insertBefore(divStock, stockContainer.childNodes[0]); // add as the first child
+      stockContainer.insertBefore(divStock, stockContainer.childNodes[0]);
 
-      // logo image
       const imgLogo = document.createElement("img");
-      imgLogo.src = logoUrl == null ? noImage : logoUrl;
-      imgLogo.className = classImgLogo;
+      imgLogo.src = logoUrl == null ? "img/noimage.png" : logoUrl;
+      imgLogo.className = "stock-logo rounded";
       imgLogo.id = "logoImg" + companyName;
       imgLogo.alt = "Logo image of " + companyName;
 
-      // Company name
       const divBody = document.createElement("div");
-      divBody.className = classDivBody;
+      divBody.className = "media-body";
       divStock.append(imgLogo, divBody);
 
-      // Close button
       const btnClose = document.createElement("button");
-      btnClose.className = classBtnClose;
+      btnClose.className = "close";
       btnClose.textContent = "×";
 
-      // Company name
       const h2Name = document.createElement("h2");
-      h2Name.className = classH2Name;
+      h2Name.className = "stock-name";
       h2Name.textContent = companyName;
 
       const iSymbol = document.createElement("i");
-      iSymbol.className = classIStockSymbol;
+      iSymbol.className = "stock-symbol";
       iSymbol.textContent = `(${data["Global Quote"]["01. symbol"]})`;
       h2Name.appendChild(iSymbol);
 
       const divStockText = document.createElement("div");
-      divStockText.className = classDivStockText;
+      divStockText.className = "text-nowrap";
       divBody.append(btnClose, h2Name, divStockText);
 
       const spanPrice = document.createElement("span");
-      spanPrice.className = classSpanStockPrice;
+      spanPrice.className = "stock-price";
       spanPrice.textContent = "$" + addComma(data["Global Quote"]["05. price"]);
 
       const iArrow = document.createElement("i");
-      iArrow.className = classIArrowDefault;
+      iArrow.className = "fas stock-arrow";
       iArrow.classList.add(addArrowClass(gapValue), addColorClass(gapValue));
 
       const spanChange = document.createElement("span");
-      spanChange.classList.add(classSpanStockChange, addColorClass(gapValue));
+      spanChange.classList.add("stock-change", addColorClass(gapValue));
       spanChange.textContent = "$" + addComma(data["Global Quote"]["09. change"]);
 
       const spanPercent = document.createElement("span");
-      spanPercent.classList.add(classSpanStockPercent, addColorClass(gapValue));
+      spanPercent.classList.add("stock-percent", addColorClass(gapValue));
       spanPercent.textContent = addComma(data["Global Quote"]["10. change percent"]) + "%";
       divStockText.append(spanPrice, iArrow, spanChange, spanPercent);
 
@@ -68,32 +97,24 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
         $(`#logoImg${companyName}`).hide(800);
       }
 
-      // to delete the selected ticker
       addDeleteButton(btnClose);
-
-      // a stock card is clicked, open a modal when mobile size or update other information
       addEventListenerForCard(divStock, ticker, companyName, logoUrl);
-
-      // update stock info. every 1 minute
       makeUpdateTimer(divStock, ticker, companyName);
-
-      // to save current stock cards info to local storage
       saveStockList();
     } else {
-      // update the previous stock price info
       const stockContainer = document.querySelector(`div[data-ticker=${ticker}]`);
       const priceElement = stockContainer.querySelector(".stock-price");
       const arrowElement = stockContainer.querySelector(".stock-arrow");
       const changeElement = stockContainer.querySelector(".stock-change");
       const percentElement = stockContainer.querySelector(".stock-percent");
       priceElement.textContent = "$" + addComma(data["Global Quote"]["05. price"]);
-      arrowElement.classList.remove(classIArrowUp, classIArrowDown, classStockGreen, classStockRed);
+      arrowElement.classList.remove("fa-long-arrow-alt-up", "fa-long-arrow-alt-down", "stock-green", "stock-red");
       arrowElement.classList.add(addArrowClass(gapValue), addColorClass(gapValue));
       changeElement.textContent = "$" + addComma(data["Global Quote"]["09. change"]);
-      changeElement.classList.remove(classStockGreen, classStockRed);
+      changeElement.classList.remove("stock-green", "stock-red");
       changeElement.classList.add(addColorClass(gapValue));
       percentElement.textContent = addComma(data["Global Quote"]["10. change percent"]) + "%";
-      percentElement.classList.remove(classStockGreen, classStockRed);
+      percentElement.classList.remove("stock-green", "stock-red");
       percentElement.classList.add(addColorClass(gapValue));
     }
   }).fail((jqxhr, textStatus, error) => {
@@ -101,7 +122,6 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
   });
 }
 
-// to delete the selected ticker
 function addDeleteButton(element) {
   element.addEventListener("click", (event) => {
     saveStockList();
@@ -111,16 +131,14 @@ function addDeleteButton(element) {
       event.target.parentNode.parentNode.remove();
     }, 1000);
 
-    // delete update timer id
     const timerID = event.target.parentNode.parentNode.getAttribute("data-timer-id");
     clearInterval(timerID);
   });
 }
 
-// a stock card is clicked, open a modal when mobile size or update other information
 function addEventListenerForCard(element, ticker, company, url) {
   element.addEventListener("click", (event) => {
-    if (event.target.className === classBtnClose) return;
+    if (event.target.className === "close") return;
 
     if (checkModalCondition()) {
       event.target.style.zIndex = 0;
@@ -130,17 +148,28 @@ function addEventListenerForCard(element, ticker, company, url) {
       $("#stockModal").modal();
     } else if (checkScreenMoreThanMD()) {
       getNews(company);
-      drawStockChart(ticker, company, idChartContainer, idChartGraph);
+      drawStockChart(ticker, company, "chart-container-modal", "chart-stock");
     }
   });
 }
 
-// to update stock price to the lasted one
 function updateStockPriceInfo(ticker, companyName) {
   getStockQuoteInfo(ticker, companyName, false, false);
 }
 
-// to update stock price every minute
+function stockMarketHour() {
+  if (!enableUpdateTimer) return;
+
+  const current = new Date();
+  const currTime = current.getHours();
+
+  if (currTime >= 6 && currTime <= 11) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function makeUpdateTimer(element, ticker, companyName) {
   const timerID = setInterval(() => {
     if (stockMarketHour()) updateStockPriceInfo(ticker, companyName);
@@ -148,7 +177,6 @@ function makeUpdateTimer(element, ticker, companyName) {
   element.setAttribute("data-timer-id", timerID);
 }
 
-// to add default stock cards
 function getDefaultStock(defaultStock) {
   const savedList = loadStockList();
 
@@ -158,6 +186,31 @@ function getDefaultStock(defaultStock) {
 
   for (let i = 0; i < defaultStock.length; i++) {
     getStockQuoteInfo(defaultStock[i].ticker, defaultStock[i].companyName, defaultStock[i].logoUrl);
+  }
+}
+
+function saveStockList() {
+  if (!useLocalStorage) return;
+
+  const element = document.querySelector(".stock-container");
+  let list = [];
+
+  for (let i = 0; i < element.children.length; i++) {
+    let stock = { ticker: "", companyName: "", logoUrl: "" };
+    stock.ticker = element.children[i].dataset.ticker;
+    stock.companyName = element.children[i].dataset.name;
+    stock.logoUrl = element.children[i].dataset.url;
+    list.push(stock);
+  }
+
+  localStorage.setItem("stocks", JSON.stringify(list));
+}
+
+function loadStockList() {
+  if (useLocalStorage && window.localStorage) {
+    return JSON.parse(localStorage.getItem("stocks"));
+  } else {
+    return null;
   }
 }
 

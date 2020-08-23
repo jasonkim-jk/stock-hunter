@@ -1,19 +1,20 @@
-// event listner of search button
+const urlGetCompanyLogoName = "https://autocomplete.clearbit.com/v1/companies/suggest?query=";
+const urlGetStockTickerFromName = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=";
+const companyList = document.querySelector(".company-data");
+
 document.querySelector("#btn-search").addEventListener("click", updateQuote);
 
-// event listener of the input text using jQuery
-inputTxt.keydown((event) => {
-  let inputCompanyName = inputTxt.val();
+$("#input-company").keydown((event) => {
+  let inputCompanyName = $("#input-company").val();
   let key = event.keyCode || event.charCode;
 
-  // to handle backspace and delete keys
   if (key === 8 || key === 46) {
     if (!inputCompanyName) {
       clearList(companyList);
       return;
     }
   }
-  // to handle enter key or arrow down
+
   if (key === 13 || key === 40) {
     document.querySelector(".company").click();
     return;
@@ -21,7 +22,6 @@ inputTxt.keydown((event) => {
 
   inputCompanyName += event.key;
 
-  // get JSON data from open-API with company names
   $.getJSON(urlGetCompanyLogoName + inputCompanyName, (data) => {
     clearList(companyList);
 
@@ -42,13 +42,12 @@ inputTxt.keydown((event) => {
       company.append(companyLogoImg, companyName, companyDomain);
       companyList.appendChild(company);
 
-      // to get which row(company) is selected
       company.addEventListener("click", (event) => {
         const selectedCompany = event.currentTarget.getAttribute("data-cname");
         const logoUrl = event.currentTarget.firstChild.src;
         getTickerName(selectedCompany, logoUrl);
         clearList(companyList);
-        inputTxt.val("");
+        $("#input-company").val("");
         if (!checkModalCondition()) getNews(selectedCompany);
       });
     }
@@ -57,7 +56,6 @@ inputTxt.keydown((event) => {
   });
 });
 
-// get a stock ticker from a company name
 function getTickerName(name, logoUrl) {
   if (!name) {
     alert("[Error] Company name data error~!");
@@ -65,7 +63,6 @@ function getTickerName(name, logoUrl) {
   }
 
   $.getJSON(urlGetStockTickerFromName + name + stockApiKey, (data) => {
-    // console.table(data);
     for (let i = 0; i < data.bestMatches.length && i < 5; i++) {
       const company = document.createElement("div");
       const ticker = document.createElement("span");
@@ -81,13 +78,11 @@ function getTickerName(name, logoUrl) {
       company.append(ticker, companyName);
       companyList.appendChild(company);
 
-      // to get which row(ticker) is selected
       company.addEventListener("click", (event) => {
-        tickerName = event.currentTarget.getAttribute("data-ticker");
-        // console.log("Ticker: ", tickerName);
+        const tickerName = event.currentTarget.getAttribute("data-ticker");
         clearList(companyList);
         getStockQuoteInfo(tickerName, name, logoUrl);
-        if (!checkModalCondition()) drawStockChart(tickerName, name, idChartContainer, idChartGraph);
+        if (!checkModalCondition()) drawStockChart(tickerName, name, "chart-container-modal", "chart-stock");
         updateQuote();
       });
     }

@@ -1,4 +1,7 @@
-// update random quote
+const urlGetQuote = "https://api.quotable.io/random";
+const quote = document.querySelector(".blockquote p");
+const author = document.querySelector(".blockquote footer");
+
 function updateQuote() {
   $.getJSON(urlGetQuote, (data) => {
     quote.textContent = data.content;
@@ -11,7 +14,6 @@ function updateQuote() {
   });
 }
 
-// to add animation effect on texts
 function addAnimationEffect(element, delaySec) {
   let newDom = "";
 
@@ -25,7 +27,6 @@ function addAnimationEffect(element, delaySec) {
   }
 }
 
-// to remove all child element after finishing animation effect to keep word nowrap
 function removeAnimatedChildElement(title, author) {
   const quoteText = quote.textContent;
   const quoteAuthor = author.textContent;

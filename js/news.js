@@ -1,4 +1,6 @@
-// to get news data from open-api server
+const urlAllArticlesSearch = "https://api.currentsapi.services/v1/search?language=en&country=us&keywords=";
+const urlLatestNews = "https://api.currentsapi.services/v1/latest-news?language=us&country=us";
+
 function getNews(keyWord, category = "") {
   let searchUrl = "";
 
@@ -11,22 +13,20 @@ function getNews(keyWord, category = "") {
   $.getJSON(searchUrl, (data) => {
     addNewsList(data);
     if (checkScreenXS()) {
-      $(".news-image").hide(600); // remove stock logo image
+      $(".news-image").hide(600);
     }
   }).fail((jqxhr, textStatus, error) => {
     console.error(textStatus + ", " + error);
   });
 }
 
-// add news list for the selected ticker
 function addNewsList(data) {
   let tempNewsContainer = "";
 
-  // to show news data on the modal
   if ((checkMobileSize() || checkScreenRotated()) && checkModal()) {
-    tempNewsContainer = newsContainerModal;
+    tempNewsContainer = document.querySelector(".news-container-modal");
   } else {
-    tempNewsContainer = newsContainer;
+    tempNewsContainer = document.querySelector(".news-container");
   }
 
   clearList(tempNewsContainer);
@@ -34,46 +34,43 @@ function addNewsList(data) {
   // make news element up to 10
   // for (let i = 0; i < data.news.length && i < 10; i++) {
   for (let i = 0; i < data.news.length; i++) {
-    // news page link
     const a = document.createElement("a");
     a.href = data.news[i].url;
     a.target = "_blank";
     tempNewsContainer.appendChild(a);
 
     const divContainer = document.createElement("div");
-    divContainer.className = classNewsContainer;
+    divContainer.className = "card flex-sm-row box-shadow h-150 hvr-grow hvr-underline-reveal";
     a.appendChild(divContainer);
 
-    // news image
     const img = document.createElement("img");
-    img.className = classNewsImg;
+    img.className = "card-img-left col-3 flex-auto d-sm-block news-image";
     img.alt = "news image " + i;
     if (data.news[i].image !== "None") {
       img.src = data.news[i].image;
     } else {
-      img.src = noImage;
+      img.src = "img/noimage.png";
     }
 
-    // news content - category, title, text, time
     const divContent = document.createElement("div");
-    divContent.className = classNewsContent;
+    divContent.className = "card-body d-sm-flex flex-column align-items-start p-1 pl-2";
     divContainer.appendChild(divContent);
 
     const newsCategory = document.createElement("strong");
-    newsCategory.className = classNewsCategory;
+    newsCategory.className = "d-inline-block mb-0 text-success";
     newsCategory.textContent = data.news[i].category[0];
 
     const newsTitle = document.createElement("h6");
-    newsTitle.className = classNewsTitle;
+    newsTitle.className = "mb-0 text-dark";
     newsTitle.textContent = data.news[i].title.substr(0, 50) + "...";
 
     const newsText = document.createElement("p");
-    newsText.className = classNewsText;
+    newsText.className = "mb-auto card-text";
     newsText.style.maxWidth = "auto";
     newsText.textContent = data.news[i].description.substr(0, 80) + "...";
 
     const newsTime = document.createElement("div");
-    newsTime.className = classNewsTime;
+    newsTime.className = "mb-0 text-muted";
     newsTime.style.textTransform = "capitalize";
     newsTime.textContent =
       data.news[i].published.slice(0, data.news[i].published.indexOf("+")) +

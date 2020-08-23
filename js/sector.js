@@ -1,4 +1,32 @@
-// event listener to sort stock sector data
+const urlGetStockSector = "https://www.alphavantage.co/query?function=SECTOR";
+const stockSectorBody = document.querySelector(".stock-sector-body");
+
+const stockSector = [
+  "Communication Services",
+  "Consumer Discretionary",
+  "Consumer Staples",
+  "Energy",
+  "Financials",
+  "Health Care",
+  "Industrials",
+  "Information Technology",
+  "Materials",
+  "Real Estate",
+  "Utilities",
+];
+
+const stockTableIndex = [
+  { sector: document.querySelector("#table-title"), type: "alpha" },
+  { sector: document.querySelector("#table-current"), type: "numeric" },
+  { sector: document.querySelector("#table-1day"), type: "numeric" },
+  { sector: document.querySelector("#table-5day"), type: "numeric" },
+  { sector: document.querySelector("#table-1mon"), type: "numeric" },
+  { sector: document.querySelector("#table-3mon"), type: "numeric" },
+  { sector: document.querySelector("#table-1year"), type: "numeric" },
+];
+
+const stockSectorData = [];
+
 document.querySelector("#table-th-row").addEventListener("click", (event) => {
   if (event.target.id === "") return;
   let sortOrder = "";
@@ -8,7 +36,6 @@ document.querySelector("#table-th-row").addEventListener("click", (event) => {
       initializeOtherIcons("");
       getStockSector("reload");
       return;
-      break;
     case "table-title":
     case "sector-title":
       sortOrder = changeSortIcon(stockTableIndex[0].sector, stockTableIndex[0].type);
@@ -45,14 +72,13 @@ document.querySelector("#table-th-row").addEventListener("click", (event) => {
       sortItems(stockSectorData, "Rank G: 1 Year Performance", sortOrder, "numeric");
       break;
     default:
-      console.log("Error");
+      console.error("No matching case");
       return;
   }
 
   updateTable(stockSectorData);
 });
 
-// sort-no(default) => sort-down => sort-up => sort-down => sort-up ....
 function changeSortIcon(element, sortType) {
   let sortOrder = "";
   initializeOtherIcons(element);
@@ -74,7 +100,10 @@ function changeSortIcon(element, sortType) {
   return sortOrder;
 }
 
-// to sort data
+function getFloat(input) {
+  return parseFloat(input.split("%"));
+}
+
 function sortItems(sortData, sortElement, sortOrder, sortType) {
   sortData.sort(function (a, b) {
     if (sortType === "alpha") {
@@ -95,7 +124,6 @@ function sortItems(sortData, sortElement, sortOrder, sortType) {
   });
 }
 
-// to update a stock sector table with sorted data
 function updateTable(data) {
   const keyData = Object.keys(data[0]);
 
@@ -119,7 +147,6 @@ function updateTable(data) {
   }
 }
 
-// initialize the other's sorting icons
 function initializeOtherIcons(element) {
   for (let i = 0; i < stockTableIndex.length; i++) {
     if (element === stockTableIndex[i].sector) continue;
@@ -127,7 +154,6 @@ function initializeOtherIcons(element) {
   }
 }
 
-// initialize the other's sorting icons
 function initializeClass(element, type) {
   if (type === "alpha") {
     element.classList.remove("sort-down", "sort-up", "fa-sort-alpha-down-alt");
@@ -138,7 +164,6 @@ function initializeClass(element, type) {
   }
 }
 
-// to gut stock sector information
 function getStockSector(type) {
   $.getJSON(urlGetStockSector + stockApiKey, (data) => {
     if (queryDataError(data)) return;
@@ -155,7 +180,6 @@ function getStockSector(type) {
       const tr = document.createElement("tr");
       const th = document.createElement("th");
       th.scope = "row";
-      // th.className = "text-uppercase";
       th.textContent = stockSector[i];
       tempArray["sector"] = stockSector[i];
       tr.appendChild(th);
@@ -172,7 +196,8 @@ function getStockSector(type) {
       stockSectorBody.appendChild(tr);
       stockSectorData.push(tempArray);
     }
-    if (type === "create") stockSectorContainer.classList.toggle("d-none");
+
+    if (type === "create") document.querySelector(".stock-sector-container").classList.toggle("d-none");
   });
 }
 

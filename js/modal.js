@@ -3,21 +3,16 @@ $("#stockModal").on("show.bs.modal", (event) => {
   const companyName = $("#myModalLabel").text();
   showStockLogo($("#myModalLabel").attr("data-logoUrl"));
   getNews(companyName);
-  drawStockChart(ticker, companyName, idChartContainerModal, idChartGraph);
-});
-
-$("#stockModal").on("shown.bs.modal", (event) => {
-  // console.log("the modal is fully shown");
+  drawStockChart(ticker, companyName, "chart-container-modal", "chart-stock");
 });
 
 $("#stockModal").on("hide.bs.modal", (event) => {
-  // console.log("the modal is about to close");
   $(".modal-stock-logo").remove();
   $("#myModalLabel").text("");
   $("#myModalLabel").attr("data-ticker", "");
   $("#myModalLabel").attr("data-logoUrl", "");
-  clearList(newsContainerModal);
-  $(`#${idChartContainerModal}`).remove();
+  clearList(document.querySelector(".news-container-modal"));
+  $('#chart-container-modal').remove();
 });
 
 function showStockLogo(imgUrl) {
@@ -26,5 +21,5 @@ function showStockLogo(imgUrl) {
   imgElement.src = imgUrl;
   imgElement.className = "modal-stock-logo";
   imgElement.alt = "stock logo image";
-  modalHeader.insertBefore(imgElement, modalHeader.childNodes[0]); // add as the first child
+  modalHeader.insertBefore(imgElement, modalHeader.childNodes[0]);
 }
