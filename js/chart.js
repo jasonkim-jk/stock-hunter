@@ -12,7 +12,7 @@ function getChartData(data) {
   return stockChartData;
 }
 
-function createChartContainer(container) {
+function createChartContainer(container, companyName) {
   let tempChartNewsContainer = "";
   let tempNewsContainer = "";
 
@@ -26,17 +26,21 @@ function createChartContainer(container) {
     $(`#${container}`).remove();
   }
 
-  let divContainer = document.createElement("div");
+  const divContainer = document.createElement("div");
   divContainer.className = "col chart-container";
   divContainer.id = container;
 
-  let btnClose = document.createElement("button");
+  const chartContainerTitle = document.createElement("h4");
+  chartContainerTitle.className = "text-center text-dark mb-2 mb-sm-3";
+  chartContainerTitle.textContent = `${companyName} Stock Chart`;
+
+  const btnClose = document.createElement("button");
   btnClose.className = "close";
   btnClose.textContent = "×";
 
-  let divChart = document.createElement("div");
+  const divChart = document.createElement("div");
   divChart.id = "chart-stock";
-  divContainer.append(btnClose, divChart);
+  divContainer.append(btnClose, chartContainerTitle, divChart);
   tempChartNewsContainer.insertBefore(divContainer, tempNewsContainer);
 
   btnClose.addEventListener("click", (event) => {
@@ -47,18 +51,18 @@ function createChartContainer(container) {
 const urlGetStockSeriesData1DFull = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=";
 function drawStockChart(ticker, companyName, container, id) {
   Highcharts.getJSON(urlGetStockSeriesData1DFull + ticker + stockApiKey, (data) => {
-    let chartData = getChartData(data);
+    const chartData = getChartData(data);
     if (!chartData) return;
 
-    createChartContainer(container);
+    createChartContainer(container, companyName);
 
     Highcharts.stockChart(id, {
       rangeSelector: {
         selected: 1,
       },
-      title: {
-        text: companyName + " Stock Price",
-      },
+      // title: {
+      //   text: companyName + " Stock Price",
+      // },
       series: [
         {
           name: companyName,
@@ -75,7 +79,7 @@ function drawStockChart(ticker, companyName, container, id) {
 const urlGetStockSeriesData1D = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
 function drawShortStockChart(ticker, companyName, container, id) {
   Highcharts.getJSON(urlGetStockSeriesData1D + ticker + stockApiKey, (data) => {
-    let chartData = getChartData(data);
+    const chartData = getChartData(data);
     if (!chartData) return;
 
     createChartContainer(container);
@@ -119,9 +123,9 @@ function drawShortStockChart(ticker, companyName, container, id) {
         },
         selected: 2,
       },
-      title: {
-        text: companyName + " Stock Price",
-      },
+      // title: {
+      //   text: companyName + " Stock Price",
+      // },
       _navigator: {
         enabled: false,
       },

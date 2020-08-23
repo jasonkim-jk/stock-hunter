@@ -48,22 +48,24 @@
     </div>
 
     <!-- Stock contents -->
-    <div class="container">
+    <div class="container mt-3">
       <div class="row">
         <div class="col-md-5 container">
           <div class="row flex-column stock-container"></div>
-          <div class="row border stock-sector-container d-none">
-            <div class="table-responsive">
+          <div class="row flex-column border-0 stock-sector-container d-none">
+            <h4 class="text-dark mb-2 mb-sm-3 text-center">Stock Sector Performance</h4>
+            <hr class="my-0">
+            <div class="table-responsive mt-2 mt-sm-3">
               <table class="table table-hover table-sm">
-                <caption class="stock-sector-caption text-right pr-2 pb-0"></caption>
-                <thead class="thead-light">
+                <caption class="stock-sector-caption text-left px-1 py-0"></caption>
+                <thead class="thead-light mx-auto">
                   <tr id="table-th-row">
                     <th scope="col" class="text-nowrap" id="sector-title">
                       <i class="fas fa-sync-alt pl-2 pr-2" id="table-reload"></i> Stock Sector
                       <i class="fas fa-sort-alpha-down sort-no" id="table-title"></i>
                     </th>
                     <th scope="col" class="text-nowrap" id="sector-current">
-                      Current <i class="fas fa-sort-numeric-down sort-no" id="table-current"></i>
+                      Now <i class="fas fa-sort-numeric-down sort-no" id="table-current"></i>
                     </th>
                     <th scope="col" class="text-nowrap" id="sector-1day">
                       1Day <i class="fas fa-sort-numeric-down sort-no" id="table-1day"></i>
@@ -89,7 +91,7 @@
         </div>
         <!-- Stock chart and news container -->
         <div class="col-md-7 container">
-          <div class="row flex-column chart-news-container">
+          <div class="row flex-column ml-md-2 chart-news-container">
             <div class="col news-container pl-0 pr-0" id="news-container"></div>
           </div>
         </div>
