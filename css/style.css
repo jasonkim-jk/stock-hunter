@@ -43,6 +43,8 @@ body {
   border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
+  cursor: pointer;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1), 0px 2px 8px 0px rgba(0, 0, 0, 0.18);
 }
 
 .header-container .company {
@@ -61,12 +63,6 @@ body {
   cursor: pointer;
   background-color: rgb(245, 245, 245);
   text-align: left;
-}
-
-.header-container .company-data {
-  cursor: pointer;
-  text-align: left;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1), 0px 2px 8px 0px rgba(0, 0, 0, 0.18);
 }
 
 .header-container #btn-search {
@@ -120,7 +116,6 @@ body {
   width: 4rem;
   height: auto;
   margin: auto 0.5rem auto 1.5rem;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 .stock-container .media-body {
@@ -178,7 +173,6 @@ body {
 }
 
 .stock-sector-container thead th {
-  /* .stock-sector-container .sort-no:hover { */
   cursor: pointer;
 }
 
@@ -214,7 +208,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Hover.css (http://ianlunn.github.io/Hover/) : Grow */
 .hvr-grow {
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
@@ -232,7 +225,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Hover.css (http://ianlunn.github.io/Hover/) : Underline Reveal */
 .hvr-underline-reveal {
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
@@ -247,7 +239,6 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  /* background: rgb(0, 200, 5); */
   background: coral;
   height: 4px;
   -webkit-transform: translateY(4px);

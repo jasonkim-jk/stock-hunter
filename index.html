@@ -3,40 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stock Hunter</title>
+    <title>Stock Hunter - Stock Quotes & Prices | Chart | News | CNN News Channel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="img/favicon.png" sizes="32x32" type="image/png" />
   </head>
   <body>
-    <!-- Modal contents -->
-    <div class="modal fade" id="stockModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title ml-3" id="myModalLabel">Stock</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body p-0">
-            <div class="d-flex flex-column chart-news-container-modal">
-              <!-- Stock chart -->
-              <!-- <div class="col chart-container-modal" id="chart-container-modal"></div> -->
-              <!-- Stock news -->
-              <div class="news-container-modal" id="news-container-modal"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- Front page contents -->
     <div class="container header-container">
       <div class="row">
         <div class="col-sm-3 mt-2 mr-0">
-          <img src="img/logo_transparent.png" alt="webpage logo image" id="img-logo" />
+          <img src="img/logo_transparent.png" alt="stock hunter logo" id="img-logo" />
         </div>
         <div class="col-sm-9 input-group input-group-lg mt-2 align-self-center">
-          <!-- Ticker Search -->
           <input
             type="search"
             class="form-control"
@@ -70,7 +50,6 @@
     <!-- Stock contents -->
     <div class="container">
       <div class="row">
-        <!-- Stock cards container -->
         <div class="col-md-5 container">
           <div class="row flex-column stock-container"></div>
           <div class="row border stock-sector-container d-none">
@@ -111,10 +90,23 @@
         <!-- Stock chart and news container -->
         <div class="col-md-7 container">
           <div class="row flex-column chart-news-container">
-            <!-- Stock chart - created by JS -->
-            <!-- <div class="col chart-container" id="chart-container"></div> -->
-            <!-- Stock news -->
             <div class="col news-container pl-0 pr-0" id="news-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal contents -->
+    <div class="modal fade" id="stockModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title ml-3" id="myModalLabel">Stock</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="d-flex flex-column chart-news-container-modal">
+              <div class="news-container-modal" id="news-container-modal"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -140,6 +132,7 @@
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/data.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/common.js"></script>
     <script src="js/chart.js"></script>
     <script src="js/quotes.js"></script>
