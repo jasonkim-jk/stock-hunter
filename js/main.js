@@ -60,6 +60,8 @@ function getTickerName(name, logoUrl) {
     if (!data.bestMatches.length) {
       $("#tickerToast").show();
       $("#tickerToast").toast("show");
+    } else {
+      $("#input-company").val(`Please, select one of the following tickers for ${name}`);
     }
 
     for (let i = 0; i < data.bestMatches.length && i < 3; i++) {
@@ -71,13 +73,14 @@ function getTickerName(name, logoUrl) {
       ticker.className = "font-weight-bold pr-2 autocomplete-height";
       company.setAttribute("data-ticker", ticker.textContent);
       company.className = "pl-3 d-flex justify-content-between align-items-center company";
-      companyName.textContent = ` ${data.bestMatches[i]["2. name"]} (Best matches - ${data.bestMatches[i]["9. matchScore"]})`;
+      companyName.textContent = ` ${data.bestMatches[i]["2. name"]} (${data.bestMatches[i]["9. matchScore"]})`;
       companyName.className = "pr-2 autocomplete-height";
 
       company.append(ticker, companyName);
       companyList.appendChild(company);
 
       company.addEventListener("click", (event) => {
+        $("#input-company").val("");
         const tickerName = event.currentTarget.getAttribute("data-ticker");
         clearList(companyList);
         getStockQuoteInfo(tickerName, name, logoUrl);
