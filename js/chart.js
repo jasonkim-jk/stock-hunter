@@ -1,5 +1,8 @@
 function getChartData(data) {
-  if (queryDataError(data)) return false;
+  if (queryDataError(data)) {
+    $(".chart-container").remove();
+    return false;
+  }
 
   const stockChartData = [];
   const keyData = Object.keys(data["Time Series (Daily)"]);
@@ -12,18 +15,18 @@ function getChartData(data) {
   return stockChartData;
 }
 
-function createChartContainer(container, companyName) {
+function createChartContainer(container, companyName, displayType) {
   let tempChartNewsContainer = "";
   let tempNewsContainer = "";
 
-  if (checkModalCondition()) {
+  if (displayType === 'modal') {
     tempChartNewsContainer = document.querySelector(".chart-news-container-modal");
     tempNewsContainer = document.querySelector(".news-container-modal");
-    $(`#${container}-modal`).remove();
+    $("#chart-container-modal").remove();
   } else {
     tempChartNewsContainer = document.querySelector(".chart-news-container");
     tempNewsContainer = document.querySelector(".news-container");
-    $(`#${container}`).remove();
+    $("#chart-container").remove();
   }
 
   const divContainer = document.createElement("div");
@@ -38,9 +41,12 @@ function createChartContainer(container, companyName) {
   chartContainerTitleLine.className = "my-0";
 
   const divChart = document.createElement("div");
+  divChart.className = "loading";
   divChart.id = "chart-stock";
 
-  if (!checkModalCondition()) {
+  if (displayType === 'modal') {
+    divContainer.append(chartContainerTitle, chartContainerTitleLine, divChart);
+  } else {
     const btnClose = document.createElement("button");
     btnClose.className = "close mr-2";
     btnClose.textContent = "×";
@@ -48,8 +54,6 @@ function createChartContainer(container, companyName) {
       event.target.parentNode.remove();
     });
     divContainer.append(btnClose, chartContainerTitle, chartContainerTitleLine, divChart);
-  } else {
-    divContainer.append(chartContainerTitle, chartContainerTitleLine, divChart);
   }
 
   tempChartNewsContainer.insertBefore(divContainer, tempNewsContainer);
@@ -57,13 +61,13 @@ function createChartContainer(container, companyName) {
 
 const urlGetStockSeriesData1DFull =
   "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=";
-function drawStockChart(ticker, companyName, container, id) {
+function drawStockChart(ticker, companyName, container, id, displayType = "main") {
+  createChartContainer(container, companyName, displayType);
   Highcharts.getJSON(urlGetStockSeriesData1DFull + ticker + stockApiKey, (data) => {
     const chartData = getChartData(data);
     if (!chartData) return;
 
-    createChartContainer(container, companyName);
-
+    document.querySelector(".chart-container .loading").classList.remove("loading");
     Highcharts.stockChart(id, {
       rangeSelector: {
         selected: 0,

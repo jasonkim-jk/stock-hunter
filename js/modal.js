@@ -2,8 +2,8 @@ $("#stockModal").on("show.bs.modal", (event) => {
   const ticker = $("#myModalLabel").attr("data-ticker");
   const companyName = $("#myModalLabel").text();
   showStockLogo($("#myModalLabel").attr("data-logoUrl"));
-  getNews(companyName);
-  drawStockChart(ticker, companyName, "chart-container-modal", "chart-stock");
+  getNews(companyName, "modal");
+  drawStockChart(ticker, companyName, "chart-container-modal", "chart-stock", "modal");
 });
 
 $("#stockModal").on("hide.bs.modal", (event) => {

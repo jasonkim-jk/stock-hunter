@@ -4,10 +4,6 @@ function clearList(element) {
   }
 }
 
-function checkModal() {
-  return $("#stockModal").hasClass("show");
-}
-
 function checkMobileSize() {
   return $(window).width() < 500;
 }

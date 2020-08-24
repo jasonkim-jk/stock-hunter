@@ -86,7 +86,7 @@ function getTickerName(name, logoUrl) {
         getStockQuoteInfo(tickerName, name, logoUrl);
         if (!checkModalCondition()) {
           getNews(name);
-          drawStockChart(tickerName, name, "chart-container-modal", "chart-stock");
+          drawStockChart(tickerName, name, "chart-container", "chart-stock");
         }
         updateQuote();
       });

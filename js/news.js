@@ -1,24 +1,30 @@
-function getNews(keyWord) {
+function getNews(keyWord, displayType = 'main') {
   const urlAllArticlesSearch = "https://api.currentsapi.services/v1/search?language=en&country=us&keywords=";
   const searchUrl = urlAllArticlesSearch + keyWord + newsApiKey;
 
+  const newItemContainer = createNewsContainer(keyWord, displayType);
   $.getJSON(searchUrl, (data) => {
-    addNewsList(data, keyWord);
+    newItemContainer.classList.remove("loading");
+    addNewsList(data, newItemContainer);
     if (checkScreenXS()) {
       $(".news-image").hide(600);
     }
   }).fail((jqxhr, textStatus, error) => {
+    newItemContainer.classList.remove("loading");
     console.error(textStatus + ", " + error);
   });
 }
 
-function addNewsList(data, keyWord) {
+function createNewsContainer(keyWord, displayType) {
   let tempNewsContainer = "";
+  let newsItemContainer = document.createElement("div");
 
-  if ((checkMobileSize() || checkScreenRotated()) && checkModal()) {
+  if (displayType === 'modal') {
     tempNewsContainer = document.querySelector(".news-container-modal");
+    newsItemContainer.className = "news-item-container-modal loading";
   } else {
     tempNewsContainer = document.querySelector(".news-container");
+    newsItemContainer.className = "news-item-container loading";
   }
 
   clearList(tempNewsContainer);
@@ -29,13 +35,18 @@ function addNewsList(data, keyWord) {
   const newsContainerTitle = document.createElement("h4");
   newsContainerTitle.className = "text-center text-dark mb-2 mb-sm-3";
   newsContainerTitle.textContent = keyWord === "latest" ? "Latest News" : `${keyWord} News`;
-  tempNewsContainer.append(newsContainerTitle, newsContainerTitleLine);
 
+  tempNewsContainer.append(newsContainerTitle, newsContainerTitleLine, newsItemContainer);
+
+  return newsItemContainer;
+}
+
+function addNewsList(data, parentElement) {
   for (let i = 0; i < data.news.length && i < 10; i++) {
     const a = document.createElement("a");
     a.href = data.news[i].url;
     a.target = "_blank";
-    tempNewsContainer.appendChild(a);
+    parentElement.appendChild(a);
 
     const divContainer = document.createElement("div");
     divContainer.className =

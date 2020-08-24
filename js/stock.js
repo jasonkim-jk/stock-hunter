@@ -162,7 +162,7 @@ function addEventListenerForCard(element, ticker, company, url) {
       $("#stockModal").modal();
     } else if (checkScreenMoreThanMD()) {
       getNews(company);
-      drawStockChart(ticker, company, "chart-container-modal", "chart-stock");
+      drawStockChart(ticker, company, "chart-container", "chart-stock");
     }
   });
 }
