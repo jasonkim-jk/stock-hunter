@@ -37,18 +37,22 @@ function createChartContainer(container, companyName) {
   const chartContainerTitleLine = document.createElement("hr");
   chartContainerTitleLine.className = "my-0";
 
-  const btnClose = document.createElement("button");
-  btnClose.className = "close mr-2";
-  btnClose.textContent = "×";
-
   const divChart = document.createElement("div");
   divChart.id = "chart-stock";
-  divContainer.append(btnClose, chartContainerTitle, chartContainerTitleLine, divChart);
-  tempChartNewsContainer.insertBefore(divContainer, tempNewsContainer);
 
-  btnClose.addEventListener("click", (event) => {
-    event.target.parentNode.remove();
-  });
+  if (!checkModalCondition()) {
+    const btnClose = document.createElement("button");
+    btnClose.className = "close mr-2";
+    btnClose.textContent = "×";
+    btnClose.addEventListener("click", (event) => {
+      event.target.parentNode.remove();
+    });
+    divContainer.append(btnClose, chartContainerTitle, chartContainerTitleLine, divChart);
+  } else {
+    divContainer.append(chartContainerTitle, chartContainerTitleLine, divChart);
+  }
+
+  tempChartNewsContainer.insertBefore(divContainer, tempNewsContainer);
 }
 
 const urlGetStockSeriesData1DFull =

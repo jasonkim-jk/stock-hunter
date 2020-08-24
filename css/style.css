@@ -157,7 +157,7 @@ body {
 
 /******************* chart container *******************/
 .chart-container {
-  width: 100vw;
+  width: 98vw;
   min-height: 450px;
   padding: 0 0.2rem;
 }
@@ -256,9 +256,7 @@ a:active {
 }
 
 .modal-dialog {
-  max-width: 100vw;
-  padding: 0 1rem;
-  margin: 0;
+  max-width: 98vw;
 }
 
 .modal-content {
@@ -328,7 +326,7 @@ a:active {
 /******************* media query *******************/
 @media screen and (max-width: 500px) {
   body {
-    width: 100vw;
+    max-width: 98vw;
   }
 }
 
@@ -336,6 +334,7 @@ a:active {
   .header-container #img-logo {
     max-height: 2.5rem;
   }
+  .news-container-modal .w-100,
   .news-container .w-100 {
     width: 75% !important;
   }
