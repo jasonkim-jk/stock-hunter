@@ -48,6 +48,10 @@ document.querySelector("#youtube-origin").addEventListener("click", () => {
   document.querySelector(".youtube-content iframe").style.height = "150px";
 });
 
+document.querySelector("#youtube-close").addEventListener("click", () => {
+  document.querySelector(".youtube-container").classList.add("d-none");
+});
+
 document.querySelector("#youtube-size").addEventListener("click", () => {
   if (youtubeContainer.offsetWidth === 300) {
     youtubeContainer.style.width = "500px";

@@ -34,13 +34,16 @@ function createChartContainer(container, companyName) {
   chartContainerTitle.className = "text-center text-dark mb-2 mb-sm-3";
   chartContainerTitle.textContent = `${companyName} Stock Chart`;
 
+  const chartContainerTitleLine = document.createElement("hr");
+  chartContainerTitleLine.className = "my-0";
+
   const btnClose = document.createElement("button");
-  btnClose.className = "close";
+  btnClose.className = "close mr-2";
   btnClose.textContent = "×";
 
   const divChart = document.createElement("div");
   divChart.id = "chart-stock";
-  divContainer.append(btnClose, chartContainerTitle, divChart);
+  divContainer.append(btnClose, chartContainerTitle, chartContainerTitleLine, divChart);
   tempChartNewsContainer.insertBefore(divContainer, tempNewsContainer);
 
   btnClose.addEventListener("click", (event) => {
@@ -48,7 +51,8 @@ function createChartContainer(container, companyName) {
   });
 }
 
-const urlGetStockSeriesData1DFull = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=";
+const urlGetStockSeriesData1DFull =
+  "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=";
 function drawStockChart(ticker, companyName, container, id) {
   Highcharts.getJSON(urlGetStockSeriesData1DFull + ticker + stockApiKey, (data) => {
     const chartData = getChartData(data);
@@ -58,87 +62,12 @@ function drawStockChart(ticker, companyName, container, id) {
 
     Highcharts.stockChart(id, {
       rangeSelector: {
-        selected: 1,
-      },
-      // title: {
-      //   text: companyName + " Stock Price",
-      // },
-      series: [
-        {
-          name: companyName,
-          data: chartData,
-          tooltip: {
-            valueDecimals: 2,
-          },
-        },
-      ],
-    });
-  });
-}
-
-const urlGetStockSeriesData1D = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
-function drawShortStockChart(ticker, companyName, container, id) {
-  Highcharts.getJSON(urlGetStockSeriesData1D + ticker + stockApiKey, (data) => {
-    const chartData = getChartData(data);
-    if (!chartData) return;
-
-    createChartContainer(container);
-
-    Highcharts.stockChart(id, {
-      chart: {
-        height: 300,
-      },
-      rangeSelector: {
-        allButtonsEnabled: true,
-        buttons: [
-          {
-            type: "month",
-            count: 3,
-            text: "Day",
-            dataGrouping: {
-              forced: true,
-              units: [["day", [1]]],
-            },
-          },
-          {
-            type: "year",
-            count: 1,
-            text: "Week",
-            dataGrouping: {
-              forced: true,
-              units: [["week", [1]]],
-            },
-          },
-          {
-            type: "all",
-            text: "Month",
-            dataGrouping: {
-              forced: true,
-              units: [["month", [1]]],
-            },
-          },
-        ],
-        buttonTheme: {
-          width: 60,
-        },
-        selected: 2,
-      },
-      // title: {
-      //   text: companyName + " Stock Price",
-      // },
-      _navigator: {
-        enabled: false,
+        selected: 0,
       },
       series: [
         {
           name: companyName,
           data: chartData,
-          marker: {
-            enabled: null,
-            radius: 3,
-            lineWidth: 1,
-            lineColor: "#FFFFFF",
-          },
           tooltip: {
             valueDecimals: 2,
           },

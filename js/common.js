@@ -4,32 +4,6 @@ function clearList(element) {
   }
 }
 
-window.addEventListener(
-  "error",
-  windowErrorCb,
-  {
-    capture: true,
-  },
-  true
-);
-
-function windowErrorCb(event) {
-  let target = event.target;
-  let isImg = target.tagName.toLowerCase() === "img";
-  if (isImg) {
-    imgErrorCb();
-    return;
-  }
-
-  function imgErrorCb() {
-    let isImgErrorHandled = target.hasAttribute("data-src-error");
-    if (!isImgErrorHandled) {
-      target.setAttribute("data-src-error", "handled");
-      target.src = "img/logo_notfound.png";
-    }
-  }
-}
-
 function checkModal() {
   return $("#stockModal").hasClass("show");
 }
@@ -90,17 +64,18 @@ function queryDataError(data) {
   }
 }
 
+function isMobile() {
+  return "ontouchstart" in document.documentElement;
+}
+
 $("#input-company").trigger("focus");
 $("#input-company").on("click", () => {
   const obj = document.querySelector(".company-data");
   if (!this.value || obj) {
     clearList(obj);
+    $("#input-company").val("");
   }
 });
-
-function isMobile() {
-  return "ontouchstart" in document.documentElement;
-}
 
 $("#tickerToast").on("hidden.bs.toast", () => {
   $("#tickerToast").hide();

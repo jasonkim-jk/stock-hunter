@@ -3,23 +3,6 @@ const useLocalStorage = false;
 
 const urlGetStockQuote = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=";
 const stockContainer = document.querySelector(".stock-container");
-const defaultStockList = [
-  // {
-  //   ticker: "SPY",
-  //   companyName: "SPDR S&P 500 ETF Trust",
-  //   logoUrl: "img/spdr_spy.png",
-  // },
-  // {
-  //   ticker: "QQQ",
-  //   companyName: "Invesco QQQ Trust",
-  //   logoUrl: "img/invesco_qqq.png",
-  // },
-  // {
-  //   ticker: "DIA",
-  //   companyName: "SPDR Dow Jones Industrial Average ETF",
-  //   logoUrl: "img/spdr_dia.png",
-  // },
-];
 
 function addComma(numString) {
   let num = parseFloat(numString);
@@ -34,6 +17,32 @@ function addColorClass(gap) {
   return gap >= 0 ? "stock-green" : "stock-red";
 }
 
+function removeContainerTitle() {
+  if (document.querySelectorAll(".stock-row").length === 1) {
+    stockContainer.classList.remove("mb-3", "mb-sm-4");
+    clearList(stockContainer);
+    $(".chart-container").remove();
+    getNews("latest");
+  }
+}
+
+function insertContainerTitle() {
+  if (!stockContainer.hasChildNodes()) {
+    const stockContainerTitleLine = document.createElement("hr");
+    stockContainerTitleLine.className = "my-0 stock-container-title-hr";
+
+    const stockContainerTitle = document.createElement("h4");
+    stockContainerTitle.className = "text-center text-dark mb-2 mb-sm-3";
+    stockContainerTitle.textContent = "My Stcoks";
+
+    const stockRowContainer = document.createElement("div");
+    stockRowContainer.className = "stock-row-container m-0 p-0";
+
+    stockContainer.append(stockContainerTitle, stockContainerTitleLine, stockRowContainer);
+    stockContainer.classList.add("mb-3", "mb-sm-4");
+  }
+}
+
 function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
   $.getJSON(urlGetStockQuote + ticker + stockApiKey, (data) => {
     if (queryDataError(data)) return;
@@ -42,12 +51,15 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
     const gapValue = parseFloat(changePercent);
 
     if (create) {
+      insertContainerTitle();
+
+      const stockRowContainer = document.querySelector(".stock-row-container")
       const divStock = document.createElement("div");
-      divStock.className = "media border rounded align-items-center stock-row hvr-grow hvr-underline-reveal";
+      divStock.className = "media align-items-center stock-row hvr-grow hvr-underline-reveal py-3";
       divStock.setAttribute("data-name", companyName);
       divStock.setAttribute("data-ticker", ticker);
       divStock.setAttribute("data-url", logoUrl);
-      stockContainer.insertBefore(divStock, stockContainer.childNodes[0]);
+      stockRowContainer.insertBefore(divStock, stockRowContainer.childNodes[0]);
 
       const imgLogo = document.createElement("img");
       imgLogo.src = logoUrl == null ? "img/noimage.png" : logoUrl;
@@ -61,6 +73,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
 
       const btnClose = document.createElement("button");
       btnClose.className = "close mr-2";
+      btnClose.id = "closeBtn";
       btnClose.textContent = "×";
 
       const stockName = document.createElement("h6");
@@ -128,6 +141,7 @@ function addDeleteButton(element) {
     event.target.parentNode.parentNode.style.zIndex = 0;
     event.target.parentNode.parentNode.classList.add("stock-remove");
     setTimeout(() => {
+      removeContainerTitle();
       event.target.parentNode.parentNode.remove();
     }, 1000);
 
@@ -138,7 +152,7 @@ function addDeleteButton(element) {
 
 function addEventListenerForCard(element, ticker, company, url) {
   element.addEventListener("click", (event) => {
-    if (event.target.className === "close") return;
+    if (event.target.id === "closeBtn") return false;
 
     if (checkModalCondition()) {
       event.target.style.zIndex = 0;

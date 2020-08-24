@@ -134,10 +134,15 @@
 
     <!-- Youtube container -->
     <div class="youtube-container" id="div-youtube">
-      <div class="youtube-title" id="div-youtube-header">
+      <div class="youtube-title d-flex justify-content-between" id="div-youtube-header">
+        <!-- <span> -->
         <i class="pl-2 pt-1 far fa-dot-circle" id="youtube-origin"></i>
+        <!-- </span> -->
         <p class="m-0"></p>
-        <i class="pr-2 pt-1 fas fa-expand" id="youtube-size"></i>
+        <span>
+          <i class="pr-2 pt-1 fas fa-expand" id="youtube-size"></i>
+          <i class="px-2 far fa-times-circle" id="youtube-close"></i>
+        </span>
       </div>
       <div class="youtube-content">
         <iframe
@@ -154,6 +159,7 @@
     <script src="https://code.highcharts.com/stock/modules/data.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/config.js"></script>
+    <script src="js/default-stock.js"></script>
     <script src="js/common.js"></script>
     <script src="js/chart.js"></script>
     <script src="js/quotes.js"></script>
