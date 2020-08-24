@@ -1,4 +1,4 @@
-function getNews(keyWord, displayType = 'main') {
+function getNews(keyWord, displayType = "main") {
   const urlAllArticlesSearch = "https://api.currentsapi.services/v1/search?language=en&country=us&keywords=";
   const searchUrl = urlAllArticlesSearch + keyWord + newsApiKey;
 
@@ -10,8 +10,8 @@ function getNews(keyWord, displayType = 'main') {
       $(".news-image").hide(600);
     }
   }).fail((jqxhr, textStatus, error) => {
-    newItemContainer.classList.remove("loading");
-    console.error(textStatus + ", " + error);
+    $(".news-container").remove();
+    showToast("Notice", "News data is currently not available. Please, check your network status.", "error");
   });
 }
 
@@ -19,7 +19,7 @@ function createNewsContainer(keyWord, displayType) {
   let tempNewsContainer = "";
   let newsItemContainer = document.createElement("div");
 
-  if (displayType === 'modal') {
+  if (displayType === "modal") {
     tempNewsContainer = document.querySelector(".news-container-modal");
     newsItemContainer.className = "news-item-container-modal loading";
   } else {

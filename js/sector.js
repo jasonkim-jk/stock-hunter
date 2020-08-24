@@ -167,7 +167,10 @@ function initializeClass(element, type) {
 
 function getStockSector(type) {
   $.getJSON(urlGetStockSector + stockApiKey, (data) => {
-    if (queryDataError(data)) return;
+    if (queryDataError(data)) {
+      showToast("Notice", "Stock sector data is currently not available. Please, try again in 1 minute.");
+      return;
+    }
 
     const lastUpdate = "Last Updated: " + data["Meta Data"]["Last Refreshed"];
     document.querySelector(".stock-sector-caption").textContent = lastUpdate;
@@ -200,6 +203,8 @@ function getStockSector(type) {
     }
 
     if (type === "create") document.querySelector(".stock-sector-container").classList.toggle("d-none");
+  }).fail((jqxhr, textStatus, error) => {
+    showToast("Notice", "Stock sector data is currently not available. Please, check your network status.", "error");
   });
 }
 

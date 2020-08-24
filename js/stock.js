@@ -45,7 +45,10 @@ function insertContainerTitle() {
 
 function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
   $.getJSON(urlGetStockQuote + ticker + stockApiKey, (data) => {
-    if (queryDataError(data)) return;
+    if (queryDataError(data)) {
+      showToast("Notice", "Stock quote data is currently not available. Please, try again in 1 minute.");
+      return;
+    }
 
     const changePercent = data["Global Quote"]["10. change percent"];
     const gapValue = parseFloat(changePercent);
@@ -131,7 +134,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
       percentElement.classList.add(addColorClass(gapValue));
     }
   }).fail((jqxhr, textStatus, error) => {
-    console.error(textStatus + ", " + error);
+    showToast("Notice", "Stock quote data is currently not available. Please, check your network status.", "error");
   });
 }
 

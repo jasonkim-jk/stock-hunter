@@ -10,7 +10,7 @@ function updateQuote() {
     addAnimationEffect(quote, 1);
     addAnimationEffect(author, 1);
   }).fail((jqxhr, textStatus, error) => {
-    console.error(textStatus + ", " + error);
+    showToast("Notice", "Stock quote data is currently not available. Please, check your network status.", "error");
   });
 }
 

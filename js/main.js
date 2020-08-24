@@ -51,15 +51,14 @@ $("#input-company").keydown((event) => {
       });
     }
   }).fail((jqxhr, textStatus, error) => {
-    console.error(textStatus + ", " + error);
+    showToast("Notice", "Company symbol data is currently not available. Please, check your network status.", "error");
   });
 });
 
 function getTickerName(name, logoUrl) {
   $.getJSON(urlGetStockTickerFromName + name + stockApiKey, (data) => {
     if (!data.bestMatches.length) {
-      $("#tickerToast").show();
-      $("#tickerToast").toast("show");
+      showToast("Notice", "The stock ticker for the selected company could not be found.");
     } else {
       $("#input-company").val(`Please, select one of the following tickers for ${name}`);
     }
@@ -92,6 +91,6 @@ function getTickerName(name, logoUrl) {
       });
     }
   }).fail((jqxhr, textStatus, error) => {
-    console.error(textStatus + ", " + error);
+    showToast("Notice", "Stock ticker data is currently not available. Please, check your network status.", "error");
   });
 }

@@ -1,6 +1,7 @@
 function getChartData(data) {
   if (queryDataError(data)) {
     $(".chart-container").remove();
+    showToast("Notice", "Chart data is currently not available. Please, try again in 1 minute.");
     return false;
   }
 
@@ -82,5 +83,7 @@ function drawStockChart(ticker, companyName, container, id, displayType = "main"
         },
       ],
     });
+  }).fail((jqxhr, textStatus, error) => {
+    showToast("Notice", "Stock chart data is currently not available. Please, check your network status.", "error");
   });
 }

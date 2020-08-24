@@ -54,14 +54,23 @@ $(window).resize(() => {
 });
 
 function queryDataError(data) {
-  if (Object.prototype.hasOwnProperty.call(data, "Note")) {
-    alert("[Error] Wrong JSON data from the API server");
-    return true;
-  }
+  if (Object.prototype.hasOwnProperty.call(data, "Note")) return true;
 }
 
 function isMobile() {
   return "ontouchstart" in document.documentElement;
+}
+
+function showToast(header, message, type = 'warning') {
+  if(type === "error") {
+    $("#toast-header-container").removeClass("bg-warning");
+    $("#toast-header-container").addClass("bg-danger");
+  }
+
+  $("#toast-header").text(header);
+  $("#toast-body").html(message);
+  $("#tickerToast").show();
+  $("#tickerToast").toast("show");
 }
 
 $("#input-company").trigger("focus");
@@ -75,4 +84,6 @@ $("#input-company").on("click", () => {
 
 $("#tickerToast").on("hidden.bs.toast", () => {
   $("#tickerToast").hide();
+  $("#toast-header-container").toggleClass("bg-warning", true);
+  $("#toast-header-container").removeClass("bg-danger");
 });
