@@ -28,7 +28,7 @@ https://stock.jsonkim.com
   - Quote API - https://api.quotable.io
   - News API - https://currentsapi.services/en
   - Chart API - https://api.highcharts.com/highcharts
-  - Company name and log API - https://clearbit.com/docs#autocomplete-api
+  - Company name and logo API - https://clearbit.com/docs#autocomplete-api
   - Stock(Symbol, Sector, Quote, Time series) API - https://www.alphavantage.co
   
 ## Preview
