@@ -218,6 +218,7 @@ body {
 .stock-container hr,
 .stock-sector-container hr,
 .chart-container hr,
+.news-container-modal hr,
 .news-container hr {
   border: 0;
   height: 3px;
