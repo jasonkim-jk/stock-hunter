@@ -49,6 +49,7 @@ document.querySelector("#youtube-origin").addEventListener("click", () => {
 });
 
 document.querySelector("#youtube-close").addEventListener("click", () => {
+  pauseYoutube();
   document.querySelector(".youtube-container").classList.add("d-none");
 });
 
@@ -64,8 +65,22 @@ document.querySelector("#youtube-size").addEventListener("click", () => {
   }
 });
 
+function pauseYoutube() {
+  const youtubeContent = document.querySelector(".youtube-content")
+  var iframe = youtubeContent.querySelector("iframe");
+  let video = youtubeContent.querySelector("video");
+  if (iframe) {
+    var iframeSrc = iframe.src;
+    iframe.src = iframeSrc;
+  }
+  if (video) {
+    video.pause();
+  }
+}
+
 function hideYoutubeContainer(value) {
   if (value) {
+    pauseYoutube();
     youtubeContainer.style.display = "none";
   } else {
     youtubeContainer.style.display = "block";
