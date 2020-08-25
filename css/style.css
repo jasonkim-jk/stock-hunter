@@ -25,6 +25,7 @@ body {
 .header-container #img-logo {
   max-height: 3.5rem;
   margin: auto;
+  cursor: pointer;
 }
 
 .header-container #input-company::-webkit-search-cancel-button {
@@ -92,6 +93,7 @@ body {
 /******************* stock container *******************/
 .stock-container .stock-row:nth-child(even) {
   background-color: white;
+  border: 1px solid rgb(245, 245, 245);
 }
 
 .stock-container .stock-row:nth-child(odd) {
@@ -226,6 +228,11 @@ body {
 .news-container-modal strong,
 .news-container strong {
   text-transform: uppercase;
+}
+
+.page-item.active .page-link {
+  background-color: rgb(108, 117, 125);
+  border-color: 	rgb(108, 117, 125);
 }
 
 .hvr-grow {

@@ -35,23 +35,25 @@ function checkModalCondition() {
   return checkMobileSize() || (checkScreenRotated() && checkScreenSM());
 }
 
-$(window).resize(() => {
+function hideShowImages(timing) {
   if (checkScreenMD()) {
-    $(".stock-logo").hide(600);
-    $(".news-image").hide(600);
+    $(".stock-logo").hide(timing);
+    $(".news-image").hide(timing);
     $(".media-body").addClass("pl-2");
     $(".news-image").removeClass("d-sm-block");
     $(".news-image").addClass("d-lg-block");
   } else if (checkScreenXS()) {
-    $(".news-image").hide(600);
+    $(".news-image").hide(timing);
   } else {
-    $(".stock-logo").show(600);
-    $(".news-image").show(600);
+    $(".stock-logo").show(timing);
+    $(".news-image").show(timing);
     $(".media-body").removeClass("pl-2");
     $(".news-image").addClass("d-sm-block");
     $(".news-image").removeClass("d-lg-block");
   }
-});
+}
+
+$(window).resize(() => hideShowImages(500));
 
 function queryDataError(data) {
   if (Object.prototype.hasOwnProperty.call(data, "Note")) return true;

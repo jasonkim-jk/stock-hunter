@@ -94,3 +94,8 @@ function getTickerName(name, logoUrl) {
     showToast("Notice", "Stock ticker data is currently not available. Please, check your network status.", "error");
   });
 }
+
+function initHome() {
+  $(".chart-container").remove();
+  getNews("latest");
+}

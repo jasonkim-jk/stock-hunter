@@ -20,6 +20,6 @@ function showStockLogo(imgUrl) {
   const imgElement = document.createElement("img");
   imgElement.src = imgUrl;
   imgElement.className = "modal-stock-logo";
-  imgElement.alt = "stock logo image";
+  imgElement.alt = "stock logo";
   modalHeader.insertBefore(imgElement, modalHeader.childNodes[0]);
 }

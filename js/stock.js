@@ -1,6 +1,3 @@
-const enableUpdateTimer = false;
-const useLocalStorage = false;
-
 const urlGetStockQuote = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=";
 const stockContainer = document.querySelector(".stock-container");
 
@@ -56,7 +53,7 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
     if (create) {
       insertContainerTitle();
 
-      const stockRowContainer = document.querySelector(".stock-row-container")
+      const stockRowContainer = document.querySelector(".stock-row-container");
       const divStock = document.createElement("div");
       divStock.className = "media align-items-center stock-row hvr-grow hvr-underline-reveal py-3";
       divStock.setAttribute("data-name", companyName);
@@ -115,8 +112,6 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
 
       addDeleteButton(btnClose);
       addEventListenerForCard(divStock, ticker, companyName, logoUrl);
-      makeUpdateTimer(divStock, ticker, companyName);
-      saveStockList();
     } else {
       const stockContainer = document.querySelector(`div[data-ticker=${ticker}]`);
       const priceElement = stockContainer.querySelector(".stock-price");
@@ -140,7 +135,6 @@ function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
 
 function addDeleteButton(element) {
   element.addEventListener("click", (event) => {
-    saveStockList();
     event.target.parentNode.parentNode.style.zIndex = 0;
     event.target.parentNode.parentNode.classList.add("stock-remove");
     setTimeout(() => {
@@ -170,64 +164,9 @@ function addEventListenerForCard(element, ticker, company, url) {
   });
 }
 
-function updateStockPriceInfo(ticker, companyName) {
-  getStockQuoteInfo(ticker, companyName, false, false);
-}
-
-function stockMarketHour() {
-  if (!enableUpdateTimer) return;
-
-  const current = new Date();
-  const currTime = current.getHours();
-
-  if (currTime >= 6 && currTime <= 11) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function makeUpdateTimer(element, ticker, companyName) {
-  const timerID = setInterval(() => {
-    if (stockMarketHour()) updateStockPriceInfo(ticker, companyName);
-  }, 60000);
-  element.setAttribute("data-timer-id", timerID);
-}
-
 function getDefaultStock(defaultStock) {
-  const savedList = loadStockList();
-
-  if (savedList !== null) {
-    defaultStock = savedList;
-  }
-
   for (let i = 0; i < defaultStock.length; i++) {
     getStockQuoteInfo(defaultStock[i].ticker, defaultStock[i].companyName, defaultStock[i].logoUrl);
-  }
-}
-
-function saveStockList() {
-  if (!useLocalStorage) return;
-
-  const element = document.querySelector(".stock-container");
-  let list = [];
-
-  for (let i = 0; i < element.children.length; i++) {
-    let stock = { ticker: "", companyName: "", logoUrl: "" };
-    stock.ticker = element.children[i].dataset.ticker;
-    stock.companyName = element.children[i].dataset.name;
-    stock.logoUrl = element.children[i].dataset.url;
-    list.push(stock);
-  }
-
-  localStorage.setItem("stocks", JSON.stringify(list));
-}
-
-function loadStockList() {
-  if (useLocalStorage && window.localStorage) {
-    return JSON.parse(localStorage.getItem("stocks"));
-  } else {
-    return null;
   }
 }
 

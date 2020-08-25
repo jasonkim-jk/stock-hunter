@@ -83,7 +83,5 @@ function drawStockChart(ticker, companyName, container, id, displayType = "main"
         },
       ],
     });
-  }).fail((jqxhr, textStatus, error) => {
-    showToast("Notice", "Stock chart data is currently not available. Please, check your network status.", "error");
   });
 }
