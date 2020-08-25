@@ -30,7 +30,7 @@ function insertContainerTitle() {
 
     const stockContainerTitle = document.createElement("h4");
     stockContainerTitle.className = "text-center text-dark mb-2 mb-sm-3";
-    stockContainerTitle.textContent = "My Stcoks";
+    stockContainerTitle.textContent = "My Stocks";
 
     const stockRowContainer = document.createElement("div");
     stockRowContainer.className = "stock-row-container m-0 p-0";
