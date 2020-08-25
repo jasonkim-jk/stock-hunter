@@ -4,23 +4,13 @@ const companyList = document.querySelector(".company-data");
 
 document.querySelector("#btn-search").addEventListener("click", updateQuote);
 
-$("#input-company").keydown((event) => {
-  let inputCompanyName = $("#input-company").val();
-  let key = event.keyCode || event.charCode;
+document.querySelector("#input-company").addEventListener("input", (event) => {
+  const inputCompanyName = event.target.value;
 
-  if (key === 8 || key === 46) {
-    if (!inputCompanyName) {
-      clearList(companyList);
-      return;
-    }
-  }
-
-  if (key === 13 || key === 40) {
-    document.querySelector(".company").click();
+  if (!inputCompanyName) {
+    clearList(companyList);
     return;
   }
-
-  inputCompanyName += event.key;
 
   $.getJSON(urlGetCompanyLogoName + inputCompanyName, (data) => {
     clearList(companyList);
