@@ -3,15 +3,24 @@ const quote = document.querySelector(".blockquote p");
 const author = document.querySelector(".blockquote footer");
 
 function updateQuote() {
-  $.getJSON(urlGetQuote, (data) => {
-    quote.textContent = data.content;
-    author.textContent = "— " + data.author;
-    removeAnimatedChildElement(quote, author);
-    addAnimationEffect(quote, 1);
-    addAnimationEffect(author, 1);
-  }).fail((jqxhr, textStatus, error) => {
-    showToast("Notice", "Stock quote data is currently not available. Please, check your network status.", "error");
-  });
+  $.ajax({
+    url: urlGetQuote,
+    timeout: 5000,
+  })
+    .done((data) => {
+      quote.textContent = data.content;
+      author.textContent = "— " + data.author;
+      removeAnimatedChildElement(quote, author);
+      addAnimationEffect(quote, 1);
+      addAnimationEffect(author, 1);
+    })
+    .fail((xhr, textStatus, error) => {
+      if (textStatus == "timeout") {
+        showToast("Notice", "Looks like the server is taking to long to respond. Please, try again in sometime.", "error");
+      } else {
+        showToast("Notice", "Stock quote data is currently not available. Please, try again in sometime.", "error");
+      }
+    });
 }
 
 function addAnimationEffect(element, delaySec) {

@@ -41,96 +41,112 @@ function insertContainerTitle() {
 }
 
 function getStockQuoteInfo(ticker, companyName, logoUrl, create = true) {
-  $.getJSON(urlGetStockQuote + ticker + stockApiKey, (data) => {
-    if (queryDataError(data)) {
-      showToast("Notice", "Stock quote data is currently not available. Please, try again in 1 minute.");
-      return;
-    }
-
-    const changePercent = data["Global Quote"]["10. change percent"];
-    const gapValue = parseFloat(changePercent);
-
-    if (create) {
-      insertContainerTitle();
-
-      const stockRowContainer = document.querySelector(".stock-row-container");
-      const divStock = document.createElement("div");
-      divStock.className = "media align-items-center stock-row hvr-grow hvr-underline-reveal py-3";
-      divStock.setAttribute("data-name", companyName);
-      divStock.setAttribute("data-ticker", ticker);
-      divStock.setAttribute("data-url", logoUrl);
-      stockRowContainer.insertBefore(divStock, stockRowContainer.childNodes[0]);
-
-      const imgLogo = document.createElement("img");
-      imgLogo.src = logoUrl == null ? "img/noimage.png" : logoUrl;
-      imgLogo.className = "stock-logo rounded mx-2 mx-sm-3";
-      imgLogo.id = "logoImg " + companyName;
-      imgLogo.alt = companyName;
-
-      const divBody = document.createElement("div");
-      divBody.className = "media-body";
-      divStock.append(imgLogo, divBody);
-
-      const btnClose = document.createElement("button");
-      btnClose.className = "close mr-2";
-      btnClose.id = "closeBtn";
-      btnClose.textContent = "×";
-
-      const stockName = document.createElement("h6");
-      stockName.className = "stock-name mb-1";
-      stockName.textContent = companyName;
-
-      const iSymbol = document.createElement("i");
-      iSymbol.className = "stock-symbol ml-2";
-      iSymbol.textContent = `(${data["Global Quote"]["01. symbol"]})`;
-      stockName.appendChild(iSymbol);
-
-      const divStockText = document.createElement("div");
-      divStockText.className = "text-nowrap";
-      divBody.append(btnClose, stockName, divStockText);
-
-      const spanPrice = document.createElement("span");
-      spanPrice.className = "stock-price mr-2 font-weight-bold";
-      spanPrice.textContent = "$" + addComma(data["Global Quote"]["05. price"]);
-
-      const iArrow = document.createElement("i");
-      iArrow.className = "fas stock-arrow m-1";
-      iArrow.classList.add(addArrowClass(gapValue), addColorClass(gapValue));
-
-      const spanChange = document.createElement("span");
-      spanChange.classList.add("stock-change", "m-1", addColorClass(gapValue));
-      spanChange.textContent = "$" + addComma(data["Global Quote"]["09. change"]);
-
-      const spanPercent = document.createElement("span");
-      spanPercent.classList.add("stock-percent", "m-1", addColorClass(gapValue));
-      spanPercent.textContent = addComma(data["Global Quote"]["10. change percent"]) + "%";
-      divStockText.append(spanPrice, iArrow, spanChange, spanPercent);
-
-      if (checkScreenMD()) {
-        $(`#logoImg${companyName}`).hide(800);
+  $.ajax({
+    url: urlGetStockQuote + ticker + stockApiKey,
+    timeout: 5000,
+  })
+    .done((data) => {
+      if (queryDataError(data)) {
+        showToast(
+          "Notice",
+          "Due to the restriction on the use of free APIs, the service is not available now. Please, try again in 1 minute."
+        );
+        return;
       }
 
-      addDeleteButton(btnClose);
-      addEventListenerForCard(divStock, ticker, companyName, logoUrl);
-    } else {
-      const stockContainer = document.querySelector(`div[data-ticker=${ticker}]`);
-      const priceElement = stockContainer.querySelector(".stock-price");
-      const arrowElement = stockContainer.querySelector(".stock-arrow");
-      const changeElement = stockContainer.querySelector(".stock-change");
-      const percentElement = stockContainer.querySelector(".stock-percent");
-      priceElement.textContent = "$" + addComma(data["Global Quote"]["05. price"]);
-      arrowElement.classList.remove("fa-long-arrow-alt-up", "fa-long-arrow-alt-down", "stock-green", "stock-red");
-      arrowElement.classList.add(addArrowClass(gapValue), addColorClass(gapValue));
-      changeElement.textContent = "$" + addComma(data["Global Quote"]["09. change"]);
-      changeElement.classList.remove("stock-green", "stock-red");
-      changeElement.classList.add(addColorClass(gapValue));
-      percentElement.textContent = addComma(data["Global Quote"]["10. change percent"]) + "%";
-      percentElement.classList.remove("stock-green", "stock-red");
-      percentElement.classList.add(addColorClass(gapValue));
-    }
-  }).fail((jqxhr, textStatus, error) => {
-    showToast("Notice", "Stock quote data is currently not available. Please, check your network status.", "error");
-  });
+      const changePercent = data["Global Quote"]["10. change percent"];
+      const gapValue = parseFloat(changePercent);
+
+      if (create) {
+        insertContainerTitle();
+
+        const stockRowContainer = document.querySelector(".stock-row-container");
+        const divStock = document.createElement("div");
+        divStock.className = "media align-items-center stock-row hvr-grow hvr-underline-reveal py-3";
+        divStock.setAttribute("data-name", companyName);
+        divStock.setAttribute("data-ticker", ticker);
+        divStock.setAttribute("data-url", logoUrl);
+        stockRowContainer.insertBefore(divStock, stockRowContainer.childNodes[0]);
+
+        const imgLogo = document.createElement("img");
+        imgLogo.src = logoUrl == null ? "img/noimage.png" : logoUrl;
+        imgLogo.className = "stock-logo rounded mx-2 mx-sm-3";
+        imgLogo.id = "logoImg " + companyName;
+        imgLogo.alt = companyName;
+
+        const divBody = document.createElement("div");
+        divBody.className = "media-body";
+        divStock.append(imgLogo, divBody);
+
+        const btnClose = document.createElement("button");
+        btnClose.className = "close mr-2";
+        btnClose.id = "closeBtn";
+        btnClose.textContent = "×";
+
+        const stockName = document.createElement("h6");
+        stockName.className = "stock-name mb-1";
+        stockName.textContent = companyName;
+
+        const iSymbol = document.createElement("i");
+        iSymbol.className = "stock-symbol ml-2";
+        iSymbol.textContent = `(${data["Global Quote"]["01. symbol"]})`;
+        stockName.appendChild(iSymbol);
+
+        const divStockText = document.createElement("div");
+        divStockText.className = "text-nowrap";
+        divBody.append(btnClose, stockName, divStockText);
+
+        const spanPrice = document.createElement("span");
+        spanPrice.className = "stock-price mr-2 font-weight-bold";
+        spanPrice.textContent = "$" + addComma(data["Global Quote"]["05. price"]);
+
+        const iArrow = document.createElement("i");
+        iArrow.className = "fas stock-arrow m-1";
+        iArrow.classList.add(addArrowClass(gapValue), addColorClass(gapValue));
+
+        const spanChange = document.createElement("span");
+        spanChange.classList.add("stock-change", "m-1", addColorClass(gapValue));
+        spanChange.textContent = "$" + addComma(data["Global Quote"]["09. change"]);
+
+        const spanPercent = document.createElement("span");
+        spanPercent.classList.add("stock-percent", "m-1", addColorClass(gapValue));
+        spanPercent.textContent = addComma(data["Global Quote"]["10. change percent"]) + "%";
+        divStockText.append(spanPrice, iArrow, spanChange, spanPercent);
+
+        if (checkScreenMD()) {
+          $(`#logoImg${companyName}`).hide(800);
+        }
+
+        addDeleteButton(btnClose);
+        addEventListenerForCard(divStock, ticker, companyName, logoUrl);
+      } else {
+        const stockContainer = document.querySelector(`div[data-ticker=${ticker}]`);
+        const priceElement = stockContainer.querySelector(".stock-price");
+        const arrowElement = stockContainer.querySelector(".stock-arrow");
+        const changeElement = stockContainer.querySelector(".stock-change");
+        const percentElement = stockContainer.querySelector(".stock-percent");
+        priceElement.textContent = "$" + addComma(data["Global Quote"]["05. price"]);
+        arrowElement.classList.remove("fa-long-arrow-alt-up", "fa-long-arrow-alt-down", "stock-green", "stock-red");
+        arrowElement.classList.add(addArrowClass(gapValue), addColorClass(gapValue));
+        changeElement.textContent = "$" + addComma(data["Global Quote"]["09. change"]);
+        changeElement.classList.remove("stock-green", "stock-red");
+        changeElement.classList.add(addColorClass(gapValue));
+        percentElement.textContent = addComma(data["Global Quote"]["10. change percent"]) + "%";
+        percentElement.classList.remove("stock-green", "stock-red");
+        percentElement.classList.add(addColorClass(gapValue));
+      }
+    })
+    .fail((xhr, textStatus, errorThrown) => {
+      if (textStatus == "timeout") {
+        showToast(
+          "Notice",
+          "Looks like the server is taking to long to respond. Please, try again in sometime.",
+          "error"
+        );
+      } else {
+        showToast("Notice", "Stock quote data is currently not available. Please, try again in sometime.", "error");
+      }
+    });
 }
 
 function addDeleteButton(element) {

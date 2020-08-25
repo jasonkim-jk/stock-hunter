@@ -3,16 +3,25 @@ function getNews(keyWord, displayType = "main") {
   const searchUrl = urlAllArticlesSearch + keyWord + newsApiKey;
 
   const { newsItemContainer, newsPagerIdStr } = createNewsContainer(keyWord, displayType);
-  $.getJSON(searchUrl, (data) => {
-    newsItemContainer.classList.remove("loading");
-    addNewsList(data, newsItemContainer, newsPagerIdStr);
-    if (checkScreenXS()) {
-      $(".news-image").hide(600);
-    }
-  }).fail((jqxhr, textStatus, error) => {
-    $(".news-container").remove();
-    showToast("Notice", "News data is currently not available. Please, check your network status.", "error");
-  });
+  $.ajax({
+    url: searchUrl,
+    timeout: 7000,
+  })
+    .done((data) => {
+      newsItemContainer.classList.remove("loading");
+      addNewsList(data, newsItemContainer, newsPagerIdStr);
+      if (checkScreenXS()) {
+        $(".news-image").hide(600);
+      }
+    })
+    .fail((xhr, textStatus, error) => {
+      clearList(document.querySelector(".news-container"));
+      if (textStatus == 'timeout') {
+        showToast("Notice", "Looks like the server is taking to long to respond. Please, try again in sometime.", "error");
+      } else {
+        showToast("Notice", "News data is currently not available. Please, try again in sometime.", "error");
+      }
+    });
 }
 
 function createNewsContainer(keyWord, displayType) {
@@ -34,7 +43,7 @@ function createNewsContainer(keyWord, displayType) {
   clearList(tempNewsContainer);
 
   const newsContainerTitleLine = document.createElement("hr");
-  newsContainerTitleLine.className = "mb-0";
+  newsContainerTitleLine.className = "my-0";
 
   const newsContainerTitle = document.createElement("h4");
   newsContainerTitle.className = "text-center text-dark mb-2 mb-sm-3";
@@ -102,8 +111,7 @@ function displayNewsItems(data, parentElement) {
     const newsTime = document.createElement("small");
     newsTime.className = "d-block text-muted text-truncate";
     newsTime.style.textTransform = "capitalize";
-    newsTime.textContent =
-      data[i].published.slice(0, data[i].published.indexOf("+")) + " • By " + data[i].author;
+    newsTime.textContent = data[i].published.slice(0, data[i].published.indexOf("+")) + " • By " + data[i].author;
 
     const newsTitle = document.createElement("p");
     newsTitle.className = "mb-0 text-info d-block text-truncate";

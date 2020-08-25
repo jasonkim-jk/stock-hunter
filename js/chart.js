@@ -1,7 +1,10 @@
 function getChartData(data) {
   if (queryDataError(data)) {
     $(".chart-container").remove();
-    showToast("Notice", "Chart data is currently not available. Please, try again in 1 minute.");
+    showToast(
+      "Notice",
+      "Due to the restriction on the use of free APIs, the service is not available now. Please, try again in 1 minute."
+    );
     return false;
   }
 
@@ -20,7 +23,7 @@ function createChartContainer(container, companyName, displayType) {
   let tempChartNewsContainer = "";
   let tempNewsContainer = "";
 
-  if (displayType === 'modal') {
+  if (displayType === "modal") {
     tempChartNewsContainer = document.querySelector(".chart-news-container-modal");
     tempNewsContainer = document.querySelector(".news-container-modal");
     $("#chart-container-modal").remove();
@@ -45,7 +48,7 @@ function createChartContainer(container, companyName, displayType) {
   divChart.className = "loading";
   divChart.id = "chart-stock";
 
-  if (displayType === 'modal') {
+  if (displayType === "modal") {
     divContainer.append(chartContainerTitle, chartContainerTitleLine, divChart);
   } else {
     const btnClose = document.createElement("button");

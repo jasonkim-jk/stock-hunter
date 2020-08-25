@@ -166,46 +166,62 @@ function initializeClass(element, type) {
 }
 
 function getStockSector(type) {
-  $.getJSON(urlGetStockSector + stockApiKey, (data) => {
-    if (queryDataError(data)) {
-      showToast("Notice", "Stock sector data is currently not available. Please, try again in 1 minute.");
-      return;
-    }
-
-    const lastUpdate = "Last Updated: " + data["Meta Data"]["Last Refreshed"];
-    document.querySelector(".stock-sector-caption").textContent = lastUpdate;
-    const keyData = Object.keys(data);
-    stockSectorData.splice(0, stockSectorData.length);
-
-    clearList(stockSectorBody);
-
-    for (let i = 0; i < stockSector.length; i++) {
-      const tempArray = {};
-      const tr = document.createElement("tr");
-      const th = document.createElement("th");
-      th.scope = "row";
-      th.textContent = stockSector[i];
-      th.className = "font-weight-normal";
-      tempArray["sector"] = stockSector[i];
-      tr.appendChild(th);
-
-      for (let j = 1; j < 8; j++) {
-        if (j === 6) continue;
-        const td = document.createElement("td");
-        td.textContent = data[keyData[j]][stockSector[i]];
-        tempArray[keyData[j]] = data[keyData[j]][stockSector[i]];
-        td.className = "text-right";
-        getFloat(td.textContent) > 0 ? td.classList.add("stock-green") : td.classList.add("stock-red");
-        tr.appendChild(td);
+  $.ajax({
+    url: urlGetStockSector + stockApiKey,
+    timeout: 5000,
+  })
+    .done((data) => {
+      if (queryDataError(data)) {
+        showToast(
+          "Notice",
+          "Due to the restriction on the use of free APIs, the service is not available now. Please, try again in 1 minute."
+        );
+        return;
       }
-      stockSectorBody.appendChild(tr);
-      stockSectorData.push(tempArray);
-    }
 
-    if (type === "create") document.querySelector(".stock-sector-container").classList.toggle("d-none");
-  }).fail((jqxhr, textStatus, error) => {
-    showToast("Notice", "Stock sector data is currently not available. Please, check your network status.", "error");
-  });
+      const lastUpdate = "Last Updated: " + data["Meta Data"]["Last Refreshed"];
+      document.querySelector(".stock-sector-caption").textContent = lastUpdate;
+      const keyData = Object.keys(data);
+      stockSectorData.splice(0, stockSectorData.length);
+
+      clearList(stockSectorBody);
+
+      for (let i = 0; i < stockSector.length; i++) {
+        const tempArray = {};
+        const tr = document.createElement("tr");
+        const th = document.createElement("th");
+        th.scope = "row";
+        th.textContent = stockSector[i];
+        th.className = "font-weight-normal";
+        tempArray["sector"] = stockSector[i];
+        tr.appendChild(th);
+
+        for (let j = 1; j < 8; j++) {
+          if (j === 6) continue;
+          const td = document.createElement("td");
+          td.textContent = data[keyData[j]][stockSector[i]];
+          tempArray[keyData[j]] = data[keyData[j]][stockSector[i]];
+          td.className = "text-right";
+          getFloat(td.textContent) > 0 ? td.classList.add("stock-green") : td.classList.add("stock-red");
+          tr.appendChild(td);
+        }
+        stockSectorBody.appendChild(tr);
+        stockSectorData.push(tempArray);
+      }
+
+      if (type === "create") document.querySelector(".stock-sector-container").classList.toggle("d-none");
+    })
+    .fail((xhr, textStatus, error) => {
+      if (textStatus == "timeout") {
+        showToast(
+          "Notice",
+          "Looks like the server is taking to long to respond. Please, try again in sometime.",
+          "error"
+        );
+      } else {
+        showToast("Notice", "Stock sector data is currently not available. Please, try again in sometime.", "error");
+      }
+    });
 }
 
 getStockSector("create");
