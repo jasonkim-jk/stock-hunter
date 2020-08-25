@@ -32,3 +32,4 @@ https://stock.jsonkim.com
   - Stock(Symbol, Sector, Quote, Time series) API - https://www.alphavantage.co
   
 ## Preview
+<img src="img/stock-hunter-screenshot.gif">
