@@ -1,7 +1,4 @@
 # Stock Hunter
-A hackathon project utlizing the data from five public APIs to create
-
-# Stock Hunter
 > - Maintained by: `Jason Kim`
 
 ## Description
