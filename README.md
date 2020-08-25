@@ -2,7 +2,7 @@
 > - Maintained by: `Jason Kim`
 
 ## Description
-A mobile responsive stock application for users who want to search for stock quote(stock ticker / current price / change), sector performance, the latest news and CNN Youtube News.
+A mobile responsive stock application for users who want to search for stock quote(stock ticker / current price / change), sector performance, the latest news
 
 ## Live Demo
 https://stock.jsonkim.com
