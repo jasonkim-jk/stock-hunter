@@ -14,7 +14,7 @@
     <div class="container header-container">
       <div class="row">
         <div class="col-sm-3 col-xl-2 mt-2 mr-0 pr-md-0">
-          <img src="img/logo_transparent.png" alt="stock hunter logo" id="img-logo" />
+          <img src="img/logo_transparent.png" alt="stock hunter logo" id="img-logo" onclick="initHome()" />
         </div>
         <div class="col-sm-9 col-xl-10 pl-sm-0 input-group mt-2 align-self-center">
           <input
@@ -46,7 +46,6 @@
         </div>
       </div>
     </div>
-
     <!-- Stock contents -->
     <div class="container mt-3">
       <div class="row">
@@ -118,26 +117,23 @@
       class="toast"
       id="tickerToast"
       role="alert"
-      data-delay="5000"
+      data-delay="3500"
       style="position: absolute; top: 1rem; right: 1rem; z-index: 10; min-width: 20rem; display: none;"
     >
-      <div class="toast-header bg-warning text-dark">
-        <strong class="mr-auto">Notice</strong>
+      <div class="toast-header bg-warning text-dark" id="toast-header-container">
+        <strong class="mr-auto text-uppercase" id="toast-header">Notice</strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="toast-body">
-        The stock ticker for the selected company could not be found.
+      <div class="toast-body bg-white font-weight-bold" id="toast-body">
+        Sorry for the inconvenience!
       </div>
     </div>
-
     <!-- Youtube container -->
     <div class="youtube-container" id="div-youtube">
       <div class="youtube-title d-flex justify-content-between" id="div-youtube-header">
-        <!-- <span> -->
         <i class="pl-2 pt-1 far fa-dot-circle" id="youtube-origin"></i>
-        <!-- </span> -->
         <p class="m-0"></p>
         <span>
           <i class="pr-2 pt-1 fas fa-expand" id="youtube-size"></i>
@@ -158,6 +154,7 @@
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/data.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/default-stock.js"></script>
     <script src="js/common.js"></script>
@@ -167,7 +164,7 @@
     <script src="js/sector.js"></script>
     <script src="js/stock.js"></script>
     <script src="js/modal.js"></script>
-    <script src="js/draggable.js"></script>
+    <script src="js/youtube.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

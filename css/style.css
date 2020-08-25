@@ -25,6 +25,7 @@ body {
 .header-container #img-logo {
   max-height: 3.5rem;
   margin: auto;
+  cursor: pointer;
 }
 
 .header-container #input-company::-webkit-search-cancel-button {
@@ -92,6 +93,7 @@ body {
 /******************* stock container *******************/
 .stock-container .stock-row:nth-child(even) {
   background-color: white;
+  border: 1px solid rgb(245, 245, 245);
 }
 
 .stock-container .stock-row:nth-child(odd) {
@@ -162,11 +164,45 @@ body {
   padding: 0 0.2rem;
 }
 
-.chart-container .stock-time {
-  width: 3rem;
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #5bc0de;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /******************* news container *******************/
+.news-container-modal,
+.news-container {
+  min-height: 450px;
+}
+
 .news-container-modal .news-image,
 .news-container .news-image {
   width: 12rem;
@@ -192,6 +228,11 @@ body {
 .news-container-modal strong,
 .news-container strong {
   text-transform: uppercase;
+}
+
+.page-item.active .page-link {
+  background-color: rgb(108, 117, 125);
+  border-color: 	rgb(108, 117, 125);
 }
 
 .hvr-grow {
@@ -268,7 +309,7 @@ a:active {
   width: 2rem;
 }
 
-/******************* draggable container *******************/
+/******************* youtube container *******************/
 .youtube-container {
   position: fixed;
   right: 0;
