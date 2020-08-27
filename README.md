@@ -2,7 +2,7 @@
 > - Maintained by: `Jason Kim`
 
 ## Description
-A mobile responsive stock application for users who want to search for stock quote(stock ticker / current price / change), sector performance and the latest news
+A mobile responsive stock application for users who want to search for stock quotes(stock ticker / current price / change), sector performance and the latest news
 
 ## Live Demo
 https://stock.jsonkim.com
