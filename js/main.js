@@ -1,6 +1,7 @@
 const urlGetCompanyLogoName = "https://autocomplete.clearbit.com/v1/companies/suggest?query=";
 const urlGetStockTickerFromName = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=";
 const companyList = document.querySelector(".company-data");
+let debounceTimer = 0;
 
 document.querySelector("#btn-search").addEventListener("click", updateQuote);
 
@@ -12,51 +13,54 @@ document.querySelector("#input-company").addEventListener("input", (event) => {
     return;
   }
 
-  $.ajax({
-    url: urlGetCompanyLogoName + inputCompanyName,
-    timeout: 5000,
-  })
-    .done((data) => {
-      clearList(companyList);
-
-      for (let i = 0; i < data.length && i < 3; i++) {
-        const company = document.createElement("div");
-        const companyLogoImg = document.createElement("img");
-        const companyName = document.createElement("span");
-        const companyDomain = document.createElement("span");
-
-        company.className = "d-flex justify-content-between align-items-center company";
-        company.setAttribute("data-cname", data[i].name);
-        companyLogoImg.src = data[i].logo;
-        companyLogoImg.className = "company-logo";
-        companyName.textContent = data[i].name;
-        companyName.className = "font-weight-bold pr-2 autocomplete-height";
-        companyDomain.textContent = ` (${data[i].domain})`;
-        companyDomain.className = "ml-auto pr-2 autocomplete-height";
-        company.append(companyLogoImg, companyName, companyDomain);
-        companyList.appendChild(company);
-
-        company.addEventListener("click", (event) => {
-          const selectedCompany = event.currentTarget.getAttribute("data-cname");
-          const logoUrl = event.currentTarget.firstChild.src;
-          getTickerName(selectedCompany, logoUrl);
-          clearList(companyList);
-          $("#input-company").val("");
-        });
-      }
+  if(debounceTimer) clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(() => {
+    $.ajax({
+      url: urlGetCompanyLogoName + inputCompanyName,
+      timeout: 5000,
     })
-    .fail((xhr, textStatus, error) => {
-      console.log(xhr, textStatus, error);
-      if (textStatus == "timeout") {
-        showToast(
-          "Notice",
-          "Looks like the server is taking to long to respond. Please, try again in sometime.",
-          "error"
-        );
-      } else {
-        showToast("Notice", "Company symbol data is currently not available. Please, try again in sometime.", "error");
-      }
-    });
+      .done((data) => {
+        clearList(companyList);
+
+        for (let i = 0; i < data.length && i < 3; i++) {
+          const company = document.createElement("div");
+          const companyLogoImg = document.createElement("img");
+          const companyName = document.createElement("span");
+          const companyDomain = document.createElement("span");
+
+          company.className = "d-flex justify-content-between align-items-center company";
+          company.setAttribute("data-cname", data[i].name);
+          companyLogoImg.src = data[i].logo;
+          companyLogoImg.className = "company-logo";
+          companyName.textContent = data[i].name;
+          companyName.className = "font-weight-bold pr-2 autocomplete-height";
+          companyDomain.textContent = ` (${data[i].domain})`;
+          companyDomain.className = "ml-auto pr-2 autocomplete-height";
+          company.append(companyLogoImg, companyName, companyDomain);
+          companyList.appendChild(company);
+
+          company.addEventListener("click", (event) => {
+            const selectedCompany = event.currentTarget.getAttribute("data-cname");
+            const logoUrl = event.currentTarget.firstChild.src;
+            getTickerName(selectedCompany, logoUrl);
+            clearList(companyList);
+            $("#input-company").val("");
+          });
+        }
+      })
+      .fail((xhr, textStatus, error) => {
+        console.log(xhr, textStatus, error);
+        if (textStatus == "timeout") {
+          showToast(
+            "Notice",
+            "Looks like the server is taking to long to respond. Please, try again in sometime.",
+            "error"
+          );
+        } else {
+          showToast("Notice", "Company symbol data is currently not available. Please, try again in sometime.", "error");
+        }
+      });
+  }, 500);
 });
 
 function getTickerName(name, logoUrl) {
